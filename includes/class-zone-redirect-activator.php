@@ -30,7 +30,8 @@ class Zone_Redirect_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-
+		$db = new Zone_Redirect_Model_Config();
+		$db->createTable();	
 	}
 
 }

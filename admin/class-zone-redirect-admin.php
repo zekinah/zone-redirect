@@ -20,6 +20,8 @@
  * @subpackage Zone_Redirect/admin
  * @author     Zekinah Lecaros <zjlecaros@gmail.com>
  */
+require_once(plugin_dir_path(__FILE__) . '../model/model.php');
+
 class Zone_Redirect_Admin {
 
 	/**
@@ -51,6 +53,10 @@ class Zone_Redirect_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->insert = new Zone_Redirect_Model_Insert();
+		$this->display = new Zone_Redirect_Model_Display();
+		$this->update = new Zone_Redirect_Model_Update();
+		$this->deployZone();
 
 	}
 
@@ -61,19 +67,11 @@ class Zone_Redirect_Admin {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Zone_Redirect_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Zone_Redirect_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/zone-redirect-admin.css', array(), $this->version, 'all' );
+		/* Bootstrap 4 CSS */
+		echo '<link rel="stylesheet" href="'.plugin_dir_url(__FILE__) . 'css/bootstrap/bootstrap.min.css">';
+		wp_enqueue_style('zone-redirect-datatable-css', plugin_dir_url(__FILE__) . 'css/datatable/jquery.dataTables.css', array(), $this->version);
+		wp_enqueue_style('zone-redirect-pnotify', plugin_dir_url(__FILE__) . 'css/pnotify/pnotify.css', array(), $this->version);
 
 	}
 
@@ -84,20 +82,59 @@ class Zone_Redirect_Admin {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Zone_Redirect_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Zone_Redirect_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/zone-redirect-admin.js', array( 'jquery' ), $this->version, false );
+		/* Bootstrap 4 JS */
+		echo '<script src="'.plugin_dir_url(__FILE__) . 'js/bootstrap/jquery-3.3.1.slim.min.js"></script>
+		<script src="'.plugin_dir_url(__FILE__) . 'js/bootstrap/popper.min.js"></script>
+		<script src="'.plugin_dir_url(__FILE__) . 'js/bootstrap/bootstrap.min.js"></script>';
+		wp_enqueue_script('zone-redirect-toggle', plugin_dir_url(__FILE__) . 'js/bootstrap/bootstrap-toggle.min.js', array('jquery'), $this->version);
+		wp_enqueue_script('zone-redirect-fontawesome', plugin_dir_url(__FILE__) . 'js/fontawesome/all.js', array('jquery'), '5.9.0', false);
+		wp_enqueue_script('zone-redirect-pnotify', plugin_dir_url(__FILE__) . 'js/pnotify/pnotify.js', array('jquery'), $this->version);
+		wp_enqueue_script('zone-redirect-datatable-js', plugin_dir_url(__FILE__) . 'js/datatable/jquery.dataTables.js', array('jquery'), $this->version);
+		wp_enqueue_script('zone-redirect-ajax', plugin_dir_url(__FILE__)  . 'js/zone-redirect-ajax.js', array('jquery', $this->plugin_name), $this->version, false);
+		wp_localize_script('zone-redirect-ajax', 'redirectsettingsAjax', array('ajax_url' => admin_url('admin-ajax.php')));
 
+	}
+
+	public function deployZone()
+	{
+		add_action('admin_menu', array(&$this, 'zoneOptions'));
+
+		add_action('wp_ajax_save_redirection_link',  array(&$this, 'save_redirection_link'));
+	}
+
+	public function zoneOptions()
+	{
+		add_menu_page(
+			'Zone Redirect', 	//Page Title
+			'Zone Redirect',   //Menu Title
+			'manage_options', 			//Capability
+			'zone-redirect', 				//Page ID
+			array(&$this, 'zoneOptionsPage'),		//Functions
+			'dashicons-admin-site-alt3', 						//Favicon
+			99							//Position
+		);
+	}
+
+	public function zoneOptionsPage()
+	{
+		$tbl_links = $this->display->getAllLinks();
+		require_once('view/zone-redirect-main-display.php');
+	}
+
+	public function save_redirection_link()
+	{
+		extract($_POST);
+		if (isset($zn_nonce)) {
+			$tbl_links = $this->insert->setNewLinks($zn_txt_from,$zn_txt_to,$zn_txt_type);
+			// if ($tbl_links) {
+			// 	$data = 1;
+			// } else {
+			// 	$data = 0;
+			// }
+		}
+		echo $tbl_links;
+		exit();
 	}
 
 }

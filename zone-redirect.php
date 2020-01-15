@@ -13,7 +13,7 @@
  * @package           Zone_Redirect
  *
  * @wordpress-plugin
- * Plugin Name:       Zone-Redirect
+ * Plugin Name:       Zone - Redirect
  * Plugin URI:        https://github.com/zekinah/Zone-Redirect
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
@@ -42,6 +42,7 @@ define( 'ZONE_REDIRECT_VERSION', '1.0.0' );
  * This action is documented in includes/class-zone-redirect-activator.php
  */
 function activate_zone_redirect() {
+	require_once plugin_dir_path(__FILE__) . 'model/Config.php';
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-zone-redirect-activator.php';
 	Zone_Redirect_Activator::activate();
 }
