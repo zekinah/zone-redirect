@@ -127,13 +127,13 @@ class Zone_Redirect_Admin {
 		extract($_POST);
 		if (isset($zn_nonce)) {
 			$tbl_links = $this->insert->setNewLinks($zn_txt_from,$zn_txt_to,$zn_txt_type);
-			// if ($tbl_links) {
-			// 	$data = 1;
-			// } else {
-			// 	$data = 0;
-			// }
+			if ($tbl_links) {
+				$data = 1;
+			} else {
+				$data = 0;
+			}
 		}
-		echo $tbl_links;
+		echo $data;
 		exit();
 	}
 

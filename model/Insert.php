@@ -19,7 +19,7 @@ require_once('Config.php');
 
 class Zone_Redirect_Model_Insert extends Zone_Redirect_Model_Config
 {
-    protected $requester;
+    protected $links;
 
     public function __construct() {
         global $wpdb;
@@ -30,7 +30,7 @@ class Zone_Redirect_Model_Insert extends Zone_Redirect_Model_Config
     public function setNewLinks($zn_from,$zn_to,$zn_type){
 		$db = $this->db_connect();
 		$query="
-            INSERT INTO " . $this->links . " (From,To,Type) VALUES 
+            INSERT INTO " . $this->links . " (`From`,`To`,`Type`) VALUES 
             ('". $zn_from. "','" . $zn_to . "','" . $zn_type . "')";
 		$result = $db->query($query);
 		if($result){

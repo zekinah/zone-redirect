@@ -71,3 +71,7 @@ a:focus {
   padding: .7em 2em 1em !important;
   max-width: 100% !important;
 }
+
+label span {
+  color: red;
+}
