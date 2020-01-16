@@ -23,6 +23,14 @@
   color: #fff;
 }
 
+.pull-r {
+  float: right;
+}
+
+.pull-l {
+  float: left;
+}
+
 button#btn-restore-content:hover,
 button#btn-restore-email-settings:hover {
   color: #000;
@@ -50,7 +58,6 @@ button.btn-close {
   text-decoration: none;
   text-shadow: 0 -1px 1px #99001A, 1px 0 1px #99001A, 0 1px 1px #99001A, -1px 0 1px #99001A;
 }
-
 /* Style the tab */
 .tab-content .tab-pane {
   border-left: 1px solid #dee2e6;

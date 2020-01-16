@@ -20,18 +20,18 @@ require_once('Config.php');
 
 class Zone_Redirect_Model_Update extends Zone_Redirect_Model_Config
 {
-    protected $requester;
+    protected $redirect_links;
 
     public function __construct() {
         global $wpdb;
 
-        $this->links = "`" . $wpdb->prefix . "zn_redirect_links`";
+        $this->redirect_links = "`" . $wpdb->prefix . "zn_redirect_links`";
     }
 
     public function offRedirectLink($zn_id){
         $db = $this->db_connect();
         $query = "
-            UPDATE " . $this->zn_redirect_links . " SET
+            UPDATE " . $this->redirect_links . " SET
                 `Status` = '0'
             WHERE `Redirect_ID` = '". $zn_id."'";
         $result = $db->query($query);
@@ -45,7 +45,7 @@ class Zone_Redirect_Model_Update extends Zone_Redirect_Model_Config
     public function onRedirectLink($zn_id){
         $db = $this->db_connect();
         $query = "
-            UPDATE " . $this->zn_redirect_links . " SET
+            UPDATE " . $this->redirect_links . " SET
                 `Status` = '1'
             WHERE `Redirect_ID` = '". $zn_id."'";
         $result = $db->query($query);
@@ -56,14 +56,27 @@ class Zone_Redirect_Model_Update extends Zone_Redirect_Model_Config
         }
     }
 
-    public function setNewlinks($zn_id,$zn_from,$zn_to,$zn_type){
+    public function update_redirection_link($zn_id,$zn_from,$zn_to,$zn_type){
         $db = $this->db_connect();
         $query = "
-            UPDATE " . $this->zn_redirect_links . " SET
+            UPDATE " . $this->redirect_links . " SET
                 `From` = '". $zn_from."',
                 `To` = '". $zn_to."',
                 `Type` = '". $zn_type."'
             WHERE `Redirect_ID` = '". $zn_id."'";
+        $result = $db->query($query);
+        if ($result) {
+            return true;
+        } else {
+            die("MYSQL Error : " . mysqli_error($db));
+        }
+    }
+
+    public function trashLink($zn_id)
+    {
+        $db = $this->db_connect();
+        $query = "
+            DELETE FROM " . $this->redirect_links . " WHERE `Redirect_ID` = '". $zn_id."'";
         $result = $db->query($query);
         if ($result) {
             return true;

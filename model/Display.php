@@ -39,4 +39,31 @@ class Zone_Redirect_Model_Display extends Zone_Redirect_Model_Config {
       }
     }
 
+    public function getLinkInfo($zn_edit_id)
+    {
+      $db = $this->db_connect();
+      $sql= "
+        SELECT * FROM ". $this->links . " WHERE `Redirect_ID` = " . $zn_edit_id;
+      $result = $db->query($sql);
+      if($result){
+        return $result;
+      }else{
+        die("MYSQL Error : ".mysqli_error($db));
+      }
+    }
+
+    public function getLastLink()
+    {
+      $db = $this->db_connect();
+      $sql = "
+        SELECT * FROM " . $this->links . " ORDER BY `Redirect_ID` DESC LIMIT 1
+        ";
+      $result = $db->query($sql);
+      if ($result) {
+        return $result;
+      } else {
+        die("MYSQL Error : " . mysqli_error($db));
+      }
+    }
+
 }

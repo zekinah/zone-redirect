@@ -101,6 +101,10 @@ class Zone_Redirect_Admin {
 		add_action('admin_menu', array(&$this, 'zoneOptions'));
 
 		add_action('wp_ajax_save_redirection_link',  array(&$this, 'save_redirection_link'));
+		add_action('wp_ajax_load_link_info',  array(&$this, 'load_link_info'));
+		add_action('wp_ajax_trash_link',  array(&$this, 'trash_link'));
+		add_action('wp_ajax_update_redirection_link',  array(&$this, 'update_redirection_link'));
+		
 	}
 
 	public function zoneOptions()
@@ -125,15 +129,141 @@ class Zone_Redirect_Admin {
 	public function save_redirection_link()
 	{
 		extract($_POST);
+		$data = array();
 		if (isset($zn_nonce)) {
 			$tbl_links = $this->insert->setNewLinks($zn_txt_from,$zn_txt_to,$zn_txt_type);
+			$tbl_getlink = $this->display->getLastLink();
+			if ($tbl_links) {
+				$data['confirm'] = 1;
+				$temp_html = '';
+				while($row = $tbl_getlink->fetch_assoc()) {
+					if($row['Status'] == '1') {
+						$status = 'checked';
+					} else {
+						$status = '';
+					}
+					$temp_html .= '<tr>';
+					$temp_html .= '<td>' .$row['Redirect_ID']. '</td>';
+					$temp_html .= '<td>' .$row['From']. '</td>';
+					$temp_html .= '<td>' .$row['To']. '</td>';
+					$temp_html .= '<td>' .$row['Type']. '</td>';
+					$temp_html .= '<td>' .date('M d, Y', strtotime($row['Date'])). '</td>';
+					$temp_html .= '<td><input class="form-check-input zn_link_stat" id="zn_link_stat" type="checkbox" name="zn_link_stat"
+								data-redirectid_stat="'. $row['Redirect_ID'] .'" '. $status .'
+								data-toggle="toggle"></td>';
+					$temp_html .= '<td>
+									<a href="#TB_inline?width=600&height=400&inlineId=edit-links" class="thickbox btn btn-info btn-xs btn-link-update"
+									data-link_edit_id="'. $row['Redirect_ID'] . '"
+									data-link_edit_from="'. $row['From'] . '"
+									data-link_edit_to="'. $row['To'] . '"
+									data-link_edit_type="'. $row['Type'] . '"
+									title="Update"><i class="fas fa-edit"></i></a>
+									<a href="#" class="btn btn-danger btn-xs btn-link-remove"
+									data-link_rem_id="'. $row['Redirect_ID'] . '"
+									title="Move to trash"><i class="far fa-trash-alt"></i></a>
+								</td>';
+				
+				}
+				$data['html'] = $temp_html;
+			} else {
+				$data['confirm'] = 0;
+			}
+		}
+		echo json_encode($data);
+		exit();
+	}
+
+	public function update_redirection_link()
+	{
+		extract($_POST);
+		if (isset($zn_edit_id)) {
+			$tbl_linkupdate = $this->update->update_redirection_link($zn_edit_id, $zn_txt_from, $zn_txt_to, $zn_txt_type);
+			$tbl_getlink = $this->display->getLinkInfo($zn_edit_id);
+			// if ($tbl_linkupdate) {
+			// 	$data['confirm'] = 1;
+			// 	$temp_html = '';
+			// 	while($row = $tbl_getlink->fetch_assoc()) {
+			// 		if($row['Status'] == '1') {
+			// 			$status = 'checked';
+			// 		} else {
+			// 			$status = '';
+			// 		}
+			// 		$temp_html .= '<tr>';
+			// 		$temp_html .= '<td>' .$row['Redirect_ID']. '</td>';
+			// 		$temp_html .= '<td>' .$row['From']. '</td>';
+			// 		$temp_html .= '<td>' .$row['To']. '</td>';
+			// 		$temp_html .= '<td>' .$row['Type']. '</td>';
+			// 		$temp_html .= '<td>' .date('M d, Y', strtotime($row['Date'])). '</td>';
+			// 		$temp_html .= '<td><input class="form-check-input zn_link_stat" id="zn_link_stat" type="checkbox" name="zn_link_stat"
+			// 					data-redirectid_stat="'. $row['Redirect_ID'] .'" '. $status .'
+			// 					data-toggle="toggle"></td>';
+			// 		$temp_html .= '<td>
+			// 						<a href="#TB_inline?width=600&height=400&inlineId=edit-links" class="thickbox btn btn-info btn-xs btn-link-update"
+			// 						data-link_edit_id="'. $row['Redirect_ID'] . '"
+			// 						data-link_edit_from="'. $row['From'] . '"
+			// 						data-link_edit_to="'. $row['To'] . '"
+			// 						data-link_edit_type="'. $row['Type'] . '"
+			// 						title="Update"><i class="fas fa-edit"></i></a>
+			// 						<a href="#" class="btn btn-danger btn-xs btn-link-remove"
+			// 						data-link_rem_id="'. $row['Redirect_ID'] . '"
+			// 						title="Move to trash"><i class="far fa-trash-alt"></i></a>
+			// 					</td>';
+				
+			// 	}
+			// 	$data['html'] = $temp_html;
+			// } else {
+			// 	$data['confirm'] = 0;
+			// }
+		}
+		echo $tbl_getlink;
+		exit();
+	}
+
+	public function load_link_info()
+	{
+		extract($_POST);
+		if (isset($link_edit_id)) {
+			$dataFeed = '';
+			$dataFeed .= '<div class="row">
+				<input type="hidden" id="zn_edit_id" value="'.$link_edit_id.'">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label><strong>From URL</strong></label>
+						<input type="text" class="form-control" id="zn_edit_from" value="' . $link_edit_from . '" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label><strong>To URL</strong></label>
+						<input type="text" class="form-control" id="zn_edit_to" value="' . $link_edit_to . '" />
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label><strong>Redirection Type</strong></label>
+						<input type="text" class="form-control" id="zn_edit_type" value="' . $link_edit_type . '" readonly/>
+					</div>
+				</div>
+			</div>';
+		}
+		echo $dataFeed;
+		exit();
+	}
+
+	public function trash_link()
+	{
+		extract($_POST);
+		if (isset($link_rem_id)) {
+			$tbl_links = $this->update->trashLink($link_rem_id);
 			if ($tbl_links) {
 				$data = 1;
 			} else {
 				$data = 0;
 			}
 		}
-		echo $data;
+		echo $tbl_links;
 		exit();
 	}
 
