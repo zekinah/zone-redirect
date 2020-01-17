@@ -43,7 +43,8 @@ class Zone_Redirect_Model_Display extends Zone_Redirect_Model_Config {
     {
       $db = $this->db_connect();
       $sql= "
-        SELECT * FROM ". $this->links . " WHERE `Redirect_ID` = " . $zn_edit_id;
+        SELECT * FROM ". $this->links . " WHERE `Redirect_ID` = " . $zn_edit_id."
+        ";
       $result = $db->query($sql);
       if($result){
         return $result;

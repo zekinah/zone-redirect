@@ -64,16 +64,15 @@
                             'zn_nonce': $(this).data('zn_nonce')
                         },
                         success: function (data) {
-                            // data = data.replace(/\}\d/, "}");
-                            // var response = $.parseJSON(data);
-                            // if(response.confirm){
-                            //     $('#link'+zn_edit_id).empty();
-                            //     $('#link'+zn_edit_id).append(response.html);
-                            //     successNotif('Successfully updated the redirection');
-                            // } else {
-                            //     errorNotif('There is an Error occured while saving the data')
-                            // }
-                            successNotif(data);
+                            data = data.replace(/\}\d/, "}");
+                            var response = $.parseJSON(data);
+                            if(response.confirm){
+                                $('#link-'+zn_edit_id).empty();
+                                $('#link-'+zn_edit_id).append(response.html);
+                                successNotif('Successfully updated the redirection');
+                            } else {
+                                errorNotif('There is an Error occured while saving the data')
+                            }
                         },
                         error: function (errorThrown) {
                             console.log(errorThrown);
