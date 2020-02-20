@@ -105,6 +105,8 @@ class Zone_Redirect_Admin {
 		add_action('wp_ajax_load_link_info',  array(&$this, 'load_link_info'));
 		add_action('wp_ajax_trash_link',  array(&$this, 'trash_link'));
 		add_action('wp_ajax_update_redirection_link',  array(&$this, 'update_redirection_link'));
+		add_action('wp_ajax_importing_spreadsheet',  array(&$this, 'importing_spreadsheet'));
+		// add_action('wp_ajax_test',  array(&$this, 'test'));
 		
 	}
 
@@ -277,6 +279,26 @@ class Zone_Redirect_Admin {
 			}
 		}
 		echo $tbl_links;
+		exit();
+	}
+
+	public function importing_spreadsheet()
+	{
+		extract($_POST);
+		if(isset($zn_nonce)){
+			$extension = pathinfo($zn_import_file, PATHINFO_EXTENSION);
+			// If file extension is 'csv'
+			if(!empty($zn_import_file) && $extension == 'csv'){
+				try {
+					$tbl_import = $this->insert->importingData($zn_import_file,$zn_start_row);
+					echo $tbl_import;
+				} catch(Exception $e) {
+					echo 'Message: ' .$e->getMessage();
+				}
+			}else{
+				echo "Invalid Extension";
+			}
+		}
 		exit();
 	}
 

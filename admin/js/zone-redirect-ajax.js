@@ -29,7 +29,7 @@
                                 $('#tbl-redirect #body_links').prepend(response.html);
                                 successNotif('Successfully added a new redirection');
                             } else {
-                                errorNotif('There is an Error occured while saving the data')
+                                errorNotif('There is an Error occured while saving the data');
                             }
                         },
                         error: function (errorThrown) {
@@ -71,7 +71,7 @@
                                 $('#link-'+zn_edit_id).append(response.html);
                                 successNotif('Successfully updated the redirection');
                             } else {
-                                errorNotif('There is an Error occured while saving the data')
+                                errorNotif('There is an Error occured while saving the data');
                             }
                         },
                         error: function (errorThrown) {
@@ -105,13 +105,39 @@
                                 $(this).remove();
                             });
                         } else {
-                            errorNotif('There is an Error occured while saving the data')
+                            errorNotif('There is an Error occured while saving the data');
                         }
                     },
                     error: function (errorThrown) {
                         console.log(errorThrown);
                     }
                 });
+            }
+        });
+
+        $('#btn-import').on("click", function (event) {
+            var $button = $(this);
+            var fileData = $('#selected_file').val();
+            var startRow = $('#zn_start_row').val();
+            if(fileData !== "" && fileData !== null) {
+                $.ajax({
+                    url: redirectsettingsAjax.ajax_url,
+                    type: 'POST',
+                    data: {
+                        'action': 'importing_spreadsheet',
+                        'zn_import_file': fileData,
+                        'zn_start_row': startRow,
+                        'zn_nonce': $button.data('zn_nonce')
+                    },
+                    success: function (data) {
+                        successNotif('Total record Inserted : '+data);
+                    },
+                    error: function (errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+            } else {
+                errorNotif('Please add a file before importing.');
             }
         });
 
