@@ -67,4 +67,18 @@ class Zone_Redirect_Model_Display extends Zone_Redirect_Model_Config {
       }
     }
 
+    public function getLinkData()
+    {
+      global $wpdb;
+      $result = $wpdb->get_results( "SELECT * FROM ". $this->links );
+      return $result;
+    }
+
+    public function getColumns()
+    {
+      global $wpdb;
+      $result = $wpdb->get_results( "SHOW COLUMNS FROM " . $this->links );
+      return $result;
+    }
+
 }

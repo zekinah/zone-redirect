@@ -106,6 +106,9 @@ class Zone_Redirect_Admin {
 		add_action('wp_ajax_trash_link',  array(&$this, 'trash_link'));
 		add_action('wp_ajax_update_redirection_link',  array(&$this, 'update_redirection_link'));
 		add_action('wp_ajax_importing_spreadsheet',  array(&$this, 'importing_spreadsheet'));
+		add_action('wp_ajax_exporting_spreadsheet',  array(&$this, 'exporting_spreadsheet'));
+
+		add_action('plugins_loaded', array(&$this, 'zn_plugins_loaded' ));
 		// add_action('wp_ajax_test',  array(&$this, 'test'));
 		
 	}
@@ -290,7 +293,7 @@ class Zone_Redirect_Admin {
 			// If file extension is 'csv'
 			if(!empty($zn_import_file) && $extension == 'csv'){
 				try {
-					$tbl_import = $this->insert->importingData($zn_import_file,$zn_start_row);
+					$tbl_import = $this->insert->importingData($zn_import_file,$zn_start_row,$zn_update_data);
 					echo $tbl_import;
 				} catch(Exception $e) {
 					echo 'Message: ' .$e->getMessage();
@@ -302,4 +305,48 @@ class Zone_Redirect_Admin {
 		exit();
 	}
 
+	public function exporting_spreadsheet()
+	{
+		extract($_POST);
+		if(isset($zn_nonce)){
+			ob_end_clean();
+			$field = '';
+			$getField = '';
+			$result = $this->display->getLinkData();
+			$columnsList = $this->display->getColumns();
+			$fieldsCount = count( $columnsList );
+
+			foreach ( $columnsList as $column ) {
+				$getField .= $column->Field . ',';
+			}
+			$sub = substr_replace( $getField, '', -1 );
+			$fields = $sub . "\n"; // Get fields names
+			$csv_file_name = 'Zone_Redirect_Links_' . date( 'Y-m-d' ) . '.csv';
+
+			// Get fields values with last comma excluded
+			foreach ( $result as $row ) {
+				foreach ( $row as $data ) {
+					$value	 = str_replace( array( "\n", "\n\r", "\r\n", "\r" ), "\t", $data ); // Replace new line with tab
+					$value	 = str_getcsv( $value, ",", "\"", "\\" ); // SEQUENCING DATA IN CSV FORMAT, REQUIRED PHP >= 5.3.0
+					$fields	 .= $value[ 0 ] . ','; // Separate fields with comma
+				}
+				$fields	 = substr_replace( $fields, '', -1 ); // Remove extra space at end of string
+				$fields	 .= "\n"; // Force new line if loop complete
+			}
+
+			header( "Content-type: text/csv" );
+			header( "Content-Transfer-Encoding: binary" );
+			header( "Content-Disposition: attachment; filename=" . $csv_file_name );
+			header( "Content-type: application/x-msdownload" );
+			header( "Pragma: no-cache" );
+			header( "Expires: 0" );
+
+			echo $fields;
+		}
+		exit();
+	}
+
+	// public function zn_plugins_loaded() {
+	// 	$this->exporting_spreadsheet();
+    // }
 }

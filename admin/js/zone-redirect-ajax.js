@@ -115,10 +115,18 @@
             }
         });
 
+        /** Import Data */
         $('#btn-import').on("click", function (event) {
             var $button = $(this);
             var fileData = $('#selected_file').val();
             var startRow = $('#zn_start_row').val();
+            var updateRow = '';
+            if($('input[name="zn_update_data"]').prop("checked") == true){
+                updateRow = 1;
+            }
+            else {
+                updateRow = 0;
+            }
             if(fileData !== "" && fileData !== null) {
                 $.ajax({
                     url: redirectsettingsAjax.ajax_url,
@@ -127,10 +135,11 @@
                         'action': 'importing_spreadsheet',
                         'zn_import_file': fileData,
                         'zn_start_row': startRow,
+                        'zn_update_data': updateRow,
                         'zn_nonce': $button.data('zn_nonce')
                     },
                     success: function (data) {
-                        successNotif('Total record Inserted : '+data);
+                        successNotif(data);
                     },
                     error: function (errorThrown) {
                         console.log(errorThrown);
@@ -141,7 +150,28 @@
             }
         });
 
-
+        $("#btn-extract").on("click", function (event) {
+            var $button = $(this);
+            $.ajax({
+                url: redirectsettingsAjax.ajax_url,
+                type: 'POST',
+                data: {
+                    'action': 'exporting_spreadsheet',
+                    'zn_nonce': $button.data('zn_nonce')
+                },
+                success: function (data) {
+                    successNotif(data);
+                    // if (data == 1) {
+                    //     successNotif('Successfully Exported');
+                    // } else {
+                    //     errorNotif('There is an Error occured while exporting the data');
+                    // }
+                },
+                error: function (errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+        });
         // Live Notification in Bubble Popup Sidebar
         // setInterval(liveNotificationGDPR, 5000);
    });

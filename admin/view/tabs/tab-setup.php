@@ -27,8 +27,13 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
                 </div>
                 <div class="form-group">
                     <label><strong>Select Starting Row:</strong></label>
-                    <input id="zn_start_row" name="zn_start_row" type="text" size="10" />
+                    <input id="zn_start_row" name="zn_start_row" type="number" min="0"/>
                     <br><?php _e( 'Defaults to row 1 (top row) of .csv file.'); ?>
+                </div>
+                <div class="form-group">
+                    <label><strong>Update exisiting data:</strong></label>
+                    <input class="form-check-input zn_update_data" id="zn_update_data" data-nonce="<?= $zn_form_nonce ?>" type="checkbox" name="zn_update_data" data-toggle="toggle">
+                    <br><?php _e( 'Will update exisiting database rows when a duplicated primary key is encountered. Defaults to all rows inserted as new rows.'); ?>
                 </div>
                 <button id="btn-import" data-zn_nonce="<?=$zn_form_nonce?>" type="button" class="btn btn-import btn-zn-primary pull-r">Import</button>
             </div>
@@ -37,7 +42,10 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
     <div class="col-md-6">
         <div class="card">
             <h2>Export Data</h2>
-            <button id="btn-extract" data-zn_nonce="<?=$zn_form_nonce?>" type="button" class="btn btn-save-settings pull-r">Download</button>
+            <?php _e( 'The file that will be exported is a .csv.'); ?>
+            <div class="form">
+                <button id="btn-extract" data-zn_nonce="<?=$zn_form_nonce?>" type="button" class="btn btn-save-settings">Download</button>
+            </div>
         </div>
     </div>
 </div>

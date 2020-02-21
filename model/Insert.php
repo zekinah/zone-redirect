@@ -40,10 +40,11 @@ class Zone_Redirect_Model_Insert extends Zone_Redirect_Model_Config
 		}	
 	}
 	
-	public function importingData($zn_import_file,$zn_start_row)
+	public function importingData($zn_import_file,$zn_start_row,$zn_update_data)
 	{
 		$db = $this->db_connect();
 		$totalInserted = 0;
+		$totalDuplicated = 0;
 		$csvData = array();
 		$csvFile = fopen($zn_import_file, 'r');
 		$temp = 0;
@@ -54,20 +55,36 @@ class Zone_Redirect_Model_Insert extends Zone_Redirect_Model_Config
 				$zn_to = trim($csvData[$temp][1]);
 				$zn_type = trim($csvData[$temp][2]);
 				if(!empty($zn_from) && !empty($zn_to) && !empty($zn_type) ) {
-					$query="
-						INSERT INTO " . $this->redirect_links . " (`From`,`To`,`Type`) VALUES 
-						('". $zn_from. "','" . $zn_to . "','" . $zn_type . "')";
-					$result = $db->query($query);
-					if($result){
-						$totalInserted++;
-					}else{
-						die("MYSQL Error : ".mysqli_error($db));
+					if(!$zn_update_data) {
+						$query="
+							INSERT INTO " . $this->redirect_links . " (`From`,`To`,`Type`) VALUES 
+							('". $zn_from. "','" . $zn_to . "','" . $zn_type . "')";
+						$result = $db->query($query);
+						if($result){
+							$totalInserted++;
+						}else{
+							die("MYSQL Error : ".mysqli_error($db));
+						}
+					} else {
+						$query="
+							INSERT INTO " . $this->redirect_links . " (`From`,`To`,`Type`) VALUES 
+							('". $zn_from. "','" . $zn_to . "','" . $zn_type . "')
+							ON DUPLICATE KEY UPDATE `To` = '. $zn_to .'  ;";
+						$result = $db->query($query);
+						if($result){
+							$totalDuplicated++;
+						}else{
+							die("MYSQL Error : ".mysqli_error($db));
+						}
 					}
 				}
 			}
 			$temp++;
 		}
-		return $totalInserted;
+		$message = 'Total record Inserted : '.$totalInserted.'<br>';
+		$message .= 'Total record Updated : '.$totalDuplicated;
+		return $message;
+		// https://pv-locale.primeview.com/wp-content/uploads/2020/02/zone-redirect2-1.csv
 	}
 	
 	public function extractPost($post){
