@@ -103,8 +103,9 @@ class Zone_Redirect_Admin {
 		// add_action('plugins_loaded',  array(&$this, 'zn_plugins_loaded'));
 		add_action('wp_ajax_save_redirection_link',  array(&$this, 'save_redirection_link'));
 		add_action('wp_ajax_load_link_info',  array(&$this, 'load_link_info'));
-		add_action('wp_ajax_trash_link',  array(&$this, 'trash_link'));
 		add_action('wp_ajax_update_redirection_link',  array(&$this, 'update_redirection_link'));
+		add_action('wp_ajax_trash_link',  array(&$this, 'trash_link'));
+		add_action('wp_ajax_change_link_status',  array(&$this, 'change_link_status'));
 		add_action('wp_ajax_importing_spreadsheet',  array(&$this, 'importing_spreadsheet'));
 		add_action('wp_ajax_exporting_spreadsheet',  array(&$this, 'exporting_spreadsheet'));
 		
@@ -281,6 +282,25 @@ class Zone_Redirect_Admin {
 			}
 		}
 		echo $tbl_links;
+		exit();
+	}
+
+	public function change_link_status()
+	{
+		extract($_POST);
+		if (isset($zn_link_stat_id)) {
+			$link_stat = $this->display->checkLinkStatus($zn_link_stat_id);
+			if ($link_stat) {
+				/** Change to OFF link */
+				$tbl_link = $this->update->offRedirectLink($zn_link_stat_id);
+				$data = 0;
+			} else {
+				/** Change to ON link */
+				$tbl_link =  $this->update->onRedirectLink($zn_link_stat_id);
+				$data = 1;
+			}
+		}
+		echo $data;
 		exit();
 	}
 

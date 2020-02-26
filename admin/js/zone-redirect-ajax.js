@@ -115,6 +115,28 @@
             }
         });
 
+        /** Update Availability */
+        $("#tbl-redirect").on("change", ".zn_link_stat" ,function (event) {
+            $.ajax({
+                url: redirectsettingsAjax.ajax_url,
+                type: 'POST',
+                data: {
+                    'action': 'change_link_status',
+                    'zn_link_stat_id': $(this).data('zn_link_stat_id')
+                },
+                success: function (data) {
+                    if (data == 1) {
+                        successNotif('The redirection link is ON.');
+                    } else {
+                        successNotif('The redirection link is OFF.');
+                    }
+                },
+                error: function (errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+        });
+
         /** Import Data */
         $('#btn-import').on("click", function (event) {
             var $button = $(this);

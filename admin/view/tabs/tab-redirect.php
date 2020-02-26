@@ -26,9 +26,10 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
         </div>
         <div class="col">
             <label>URL Type Redirection</label>
-            <select id="zn_txt-type" class="form-control" disabled>
+            <select id="zn_txt-type" class="form-control">
                 <option  disabled>-- Choose Option --</option>
-                <option selected value="301">301</option>
+                <option value="301">301</option>
+                <option value="302">302</option>
             </select>
         </div>
         <div class="col">
@@ -61,7 +62,7 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
                 <td><?= $row['To'] ?></td>
                 <td><?= $row['Type'] ?></td>
                 <td><?= date('M d, Y', strtotime($row['Date'])) ?></td>
-                <td><input class="form-check-input zn_link_stat" id="zn_link_stat" type="checkbox" name="zn_link_stat" data-redirectid_stat="<?= $row['Redirect_ID'] ?>" <?php echo ($row['Status'] == '1' ? 'checked' : ''); ?> data-toggle="toggle"></td>
+                <td><input class="form-check-input zn_link_stat" id="zn_link_stat" type="checkbox" name="zn_link_stat" data-zn_link_stat_id="<?= $row['Redirect_ID'] ?>" <?php echo ($row['Status'] == '1' ? 'checked' : ''); ?> data-toggle="toggle"></td>
                 <td>
                     <a href="#TB_inline?width=600&height=400&inlineId=edit-links" class="thickbox btn btn-info btn-xs btn-link-update"
                     data-link_edit_id="<?= $row['Redirect_ID'] ?>"

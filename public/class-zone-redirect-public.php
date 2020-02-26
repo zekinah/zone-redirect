@@ -93,7 +93,6 @@ class Zone_Redirect_Public {
 		}
 	}
 
-
 	public function redirect($url_request) {
 		$url_request = urldecode($url_request);
 		$redirects = $this->display->getLinkRequest($url_request);
@@ -128,7 +127,6 @@ class Zone_Redirect_Public {
 		if ( isset( $_SERVER["HTTPS"] ) && strtolower( $_SERVER["HTTPS"] ) == "on" ) {
 			$protocol .= "s";
 		}
-		
 		return $protocol;
 	} 
 

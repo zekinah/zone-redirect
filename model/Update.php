@@ -28,34 +28,6 @@ class Zone_Redirect_Model_Update extends Zone_Redirect_Model_Config
         $this->redirect_links = "`" . $wpdb->prefix . "zn_redirect_links`";
     }
 
-    public function offRedirectLink($zn_id){
-        $db = $this->db_connect();
-        $query = "
-            UPDATE " . $this->redirect_links . " SET
-                `Status` = '0'
-            WHERE `Redirect_ID` = '". $zn_id."'";
-        $result = $db->query($query);
-        if ($result) {
-            return true;
-        } else {
-            die("MYSQL Error : " . mysqli_error($db));
-        }
-    }
-
-    public function onRedirectLink($zn_id){
-        $db = $this->db_connect();
-        $query = "
-            UPDATE " . $this->redirect_links . " SET
-                `Status` = '1'
-            WHERE `Redirect_ID` = '". $zn_id."'";
-        $result = $db->query($query);
-        if ($result) {
-            return true;
-        } else {
-            die("MYSQL Error : " . mysqli_error($db));
-        }
-    }
-
     public function update_redirection_link($zn_id,$zn_from,$zn_to,$zn_type){
         $db = $this->db_connect();
         $query = "
@@ -77,6 +49,34 @@ class Zone_Redirect_Model_Update extends Zone_Redirect_Model_Config
         $db = $this->db_connect();
         $query = "
             DELETE FROM " . $this->redirect_links . " WHERE `Redirect_ID` = '". $zn_id."'";
+        $result = $db->query($query);
+        if ($result) {
+            return true;
+        } else {
+            die("MYSQL Error : " . mysqli_error($db));
+        }
+    }
+
+    public function offRedirectLink($zn_id){
+        $db = $this->db_connect();
+        $query = "
+            UPDATE " . $this->redirect_links . " SET
+                `Status` = '0'
+            WHERE `Redirect_ID` = '". $zn_id."'";
+        $result = $db->query($query);
+        if ($result) {
+            return true;
+        } else {
+            die("MYSQL Error : " . mysqli_error($db));
+        }
+    }
+
+    public function onRedirectLink($zn_id){
+        $db = $this->db_connect();
+        $query = "
+            UPDATE " . $this->redirect_links . " SET
+                `Status` = '1'
+            WHERE `Redirect_ID` = '". $zn_id."'";
         $result = $db->query($query);
         if ($result) {
             return true;
