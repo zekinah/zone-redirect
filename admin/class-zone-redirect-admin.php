@@ -100,15 +100,14 @@ class Zone_Redirect_Admin {
 	public function deployZone()
 	{
 		add_action('admin_menu', array(&$this, 'zoneOptions'));
-
+		// add_action('plugins_loaded',  array(&$this, 'zn_plugins_loaded'));
 		add_action('wp_ajax_save_redirection_link',  array(&$this, 'save_redirection_link'));
 		add_action('wp_ajax_load_link_info',  array(&$this, 'load_link_info'));
 		add_action('wp_ajax_trash_link',  array(&$this, 'trash_link'));
 		add_action('wp_ajax_update_redirection_link',  array(&$this, 'update_redirection_link'));
 		add_action('wp_ajax_importing_spreadsheet',  array(&$this, 'importing_spreadsheet'));
 		add_action('wp_ajax_exporting_spreadsheet',  array(&$this, 'exporting_spreadsheet'));
-
-		add_action('plugins_loaded', array(&$this, 'zn_plugins_loaded' ));
+		
 		// add_action('wp_ajax_test',  array(&$this, 'test'));
 		
 	}
@@ -346,7 +345,7 @@ class Zone_Redirect_Admin {
 		exit();
 	}
 
-	// public function zn_plugins_loaded() {
-	// 	$this->exporting_spreadsheet();
-    // }
+	public function zn_plugins_loaded() {
+		$this->exporting_spreadsheet();
+    }
 }

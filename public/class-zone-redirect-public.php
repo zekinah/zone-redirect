@@ -20,6 +20,8 @@
  * @subpackage Zone_Redirect/public
  * @author     Zekinah Lecaros <zjlecaros@gmail.com>
  */
+require_once(plugin_dir_path(__FILE__) . '../model/model.php');
+
 class Zone_Redirect_Public {
 
 	/**
@@ -51,6 +53,9 @@ class Zone_Redirect_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->insert = new Zone_Redirect_Model_Insert();
+		$this->display = new Zone_Redirect_Model_Display();
+		$this->deployZone();
 
 	}
 
@@ -60,18 +65,6 @@ class Zone_Redirect_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Zone_Redirect_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Zone_Redirect_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/zone-redirect-public.css', array(), $this->version, 'all' );
 
@@ -84,20 +77,59 @@ class Zone_Redirect_Public {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Zone_Redirect_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Zone_Redirect_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/zone-redirect-public.js', array( 'jquery' ), $this->version, false );
 
 	}
+
+	/**
+	 * Outputs the Zone on the frontend
+	 */
+	public function deployZone() {
+		$url_request = $this->get_address();
+		if (is_admin() || empty($url_request)){
+			return false;
+		} else {
+			$this->redirect($url_request);
+		}
+	}
+
+
+	public function redirect($url_request) {
+		$url_request = urldecode($url_request);
+		$redirects = $this->display->getLinkRequest($url_request);
+		if (!empty($redirects)) {
+			while($row = $redirects->fetch_assoc()) {
+				$requestFrom = urldecode($row['From']);
+				$requestTo = urldecode($row['To']);
+				$stat = $row['Status'];
+				$type = $row['Type'];
+				if($stat && rtrim(trim($url_request), '/')) {
+					if($type == '301'){
+						header('HTTP/1.1 301 Moved Permanently');
+					} elseif ($type == '302') {
+						header('HTTP/1.1 302 Moved Temporarily');
+					}
+					header ('Location: ' . $requestTo);
+					exit();
+				}
+			}	
+			
+		}
+	}
+
+	public	function get_address() {
+		return $this->get_protocol().'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+	}
+		
+	public	function get_protocol() {
+		// Set the base protocol to http
+		$protocol = 'http';
+		// check for https
+		if ( isset( $_SERVER["HTTPS"] ) && strtolower( $_SERVER["HTTPS"] ) == "on" ) {
+			$protocol .= "s";
+		}
+		
+		return $protocol;
+	} 
 
 }

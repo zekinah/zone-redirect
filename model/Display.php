@@ -81,4 +81,16 @@ class Zone_Redirect_Model_Display extends Zone_Redirect_Model_Config {
       return $result;
     }
 
+    public function getLinkRequest($request)
+    {
+      $db = $this->db_connect();
+      $sql = "
+        SELECT * FROM " . $this->links . " WHERE `From` = '$request'";
+      $result = $db->query($sql);
+      if ($result) {
+        return $result;
+      } else {
+        die("MYSQL Error : " . mysqli_error($db));
+      }
+    }
 }
