@@ -182,12 +182,9 @@
                     'zn_nonce': $button.data('zn_nonce')
                 },
                 success: function (data) {
-                    successNotif(data);
-                    // if (data == 1) {
-                    //     successNotif('Successfully Exported');
-                    // } else {
-                    //     errorNotif('There is an Error occured while exporting the data');
-                    // }
+                    let csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(data);
+                    var csvHtml = '<a href="'+csvData+'" download="Zone_Redirect_Links.csv" style="text-align:center;"><h2>Download Here</h2></a>';
+                    downloadNotif(csvHtml);
                 },
                 error: function (errorThrown) {
                     console.log(errorThrown);
@@ -212,6 +209,20 @@
        });
    }
 
+    function downloadNotif(label) {
+        new PNotify({
+            title: '' + label + '',
+            type: 'success',
+            styling: 'bootstrap3',
+            hide: false,
+            modules: {
+                Buttons: {
+                  closer: false,
+                  sticker: false
+                }
+              }
+        });
+    }
     function successNotif(label) {
         new PNotify({
             title: '' + label + '',

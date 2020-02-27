@@ -42,9 +42,9 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
     <div class="col-md-6">
         <div class="card">
             <h2>Export Data</h2>
-            <?php _e( 'The file that will be exported is a .csv.'); ?>
+            <p>The file that will be exported is a .csv.</p>
             <div class="form">
-                <button id="btn-extract" data-zn_nonce="<?=$zn_form_nonce?>" type="button" class="btn btn-save-settings">Download</button>
+                <button id="btn-extract" data-zn_nonce="<?=$zn_form_nonce?>" type="button" class="btn btn-save-settings">Export</button>
             </div>
         </div>
     </div>

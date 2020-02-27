@@ -106,6 +106,7 @@ class Zone_Redirect_Public {
 						$data_and_time_today = date('Y-m-d H:i:s');
 						$counted = $this->insert->setVisits($requestFrom,$requestTo,$type,$data_and_time_today);
 						if($type == '301'){
+							header('Cache-Control: no-store');
 							header('HTTP/1.1 301 Moved Permanently');
 						} elseif ($type == '302') {
 							header('HTTP/1.1 302 Moved Temporarily');

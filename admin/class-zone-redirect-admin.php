@@ -350,8 +350,8 @@ class Zone_Redirect_Admin {
 					$value	 = str_getcsv( $value, ",", "\"", "\\" ); // SEQUENCING DATA IN CSV FORMAT, REQUIRED PHP >= 5.3.0
 					$fields	 .= $value[ 0 ] . ','; // Separate fields with comma
 				}
-				$fields	 = substr_replace( $fields, '', -1 ); // Remove extra space at end of string
-				$fields	 .= "\n"; // Force new line if loop complete
+				$fields	 = substr_replace( $fields, '', -1 ); 
+				$fields	 .= "\n";
 			}
 
 			header( "Content-type: text/csv" );
