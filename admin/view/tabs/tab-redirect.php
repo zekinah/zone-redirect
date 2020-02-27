@@ -13,12 +13,17 @@
  */
 $zn_form_nonce = wp_create_nonce('zn_form_nonce');
 ?>
+<h2>Information</h2>
+<ul>
+    <li><strong>301</strong> - <?php _e( 'HTTP response status code 302 Moved Permanently is used for permanent URL redirection, meaning current links or records using the URL that the response is received for should be updated.'); ?></li>
+    <li><strong>302</strong> - <?php _e( 'HTTP response status code 302 redirect status response code indicates that the resource requested has been temporarily moved to the URL given by the Location header.'); ?></li>
+</ul>
 <div class="card">
     <h2>Add new Links</h2>
     <div class="row">
         <div class="col">
-            <label>From URL <span>*</span></label>
-            <input id="zn_txt-from" class="form-control" type="text" placeholder="https://xxxxxx" required>
+            <label>From URL <span>*</span> (Page link within the site)</label>
+            <input id="zn_txt-from" class="form-control" type="text" placeholder="/xxxxxx" required>
         </div>
         <div class="col">
             <label>To New URL <span>*</span></label>
@@ -28,8 +33,8 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
             <label>URL Type Redirection</label>
             <select id="zn_txt-type" class="form-control">
                 <option  disabled>-- Choose Option --</option>
-                <option value="301">301</option>
-                <option value="302">302</option>
+                <option value="301">301 - Permanent</option>
+                <option value="302">302 - Temporarily</option>
             </select>
         </div>
         <div class="col">

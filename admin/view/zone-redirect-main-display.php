@@ -19,7 +19,7 @@
     </div>
     <div class="container-fluid">
         <?php
-        $tab_option = array('Home', 'Manage Redirection', 'Setup');
+        $tab_option = array('Home', 'Manage Redirection', 'Setup', 'History');
         echo '<ul class="nav nav-tabs" role="tablist">';
         foreach ($tab_option as $key => $option_setting) {
             if ($key == 0) {
@@ -45,6 +45,10 @@
             <!-- Setup -->
             <div id="tab-2" class="container-fluid tab-pane fade"><br>
                 <?php require_once('tabs/tab-setup.php'); ?>
+            </div>
+            <!-- History -->
+            <div id="tab-3" class="container-fluid tab-pane fade"><br>
+                <?php require_once('tabs/tab-history.php'); ?>
             </div>
         </div>
     </div>

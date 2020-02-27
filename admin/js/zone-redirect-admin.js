@@ -3,11 +3,18 @@
 	$ = jQuery.noConflict();
 	 $( window ).load(function() {
 		console.log('Loading Resources...................100%');
+		/** Generate DataTable */
 		$('#tbl-redirect').DataTable({
 			"order": [
 				[0, "desc"]
 			]
 		});
+		$('#tbl-history').DataTable({
+			"order": [
+				[0, "desc"]
+			]
+		});
+		/** Initiate Functions */
 		updateLinkInfo();
 		showUpload();
 	 });

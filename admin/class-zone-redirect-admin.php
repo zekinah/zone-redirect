@@ -129,6 +129,7 @@ class Zone_Redirect_Admin {
 	public function zoneOptionsPage()
 	{
 		$tbl_links = $this->display->getAllLinks();
+		$tbl_visits = $this->display->getAllHistory();
 		require_once('view/zone-redirect-main-display.php');
 	}
 

@@ -85,7 +85,7 @@ class Zone_Redirect_Public {
 	 * Outputs the Zone on the frontend
 	 */
 	public function deployZone() {
-		$url_request = $this->get_address();
+		$url_request =str_ireplace(get_option('home'),'',$this->get_address());
 		if (is_admin() || empty($url_request)){
 			return false;
 		} else {
@@ -94,25 +94,26 @@ class Zone_Redirect_Public {
 	}
 
 	public function redirect($url_request) {
-		$url_request = urldecode($url_request);
-		$redirects = $this->display->getLinkRequest($url_request);
+		$redirects = $this->display->getAllLinks();
 		if (!empty($redirects)) {
 			while($row = $redirects->fetch_assoc()) {
-				$requestFrom = urldecode($row['From']);
+				$requestFrom = $row['From'];
 				$requestTo = urldecode($row['To']);
 				$stat = $row['Status'];
 				$type = $row['Type'];
-				if($stat && rtrim(trim($url_request), '/')) {
-					if($type == '301'){
-						header('HTTP/1.1 301 Moved Permanently');
-					} elseif ($type == '302') {
-						header('HTTP/1.1 302 Moved Temporarily');
-					}
-					$data_and_time_today = date('Y-m-d H:i:s');
-					$counted = $this->insert->setVisits($requestFrom,$requestTo,$type,$data_and_time_today);
-					if($counted) {
-						header ('Location: ' . $requestTo,true,$type);
-						exit();
+				if($stat) {
+					if(rtrim(trim($requestFrom), '/') === rtrim(trim($url_request), '/')) {
+						$data_and_time_today = date('Y-m-d H:i:s');
+						$counted = $this->insert->setVisits($requestFrom,$requestTo,$type,$data_and_time_today);
+						if($type == '301'){
+							header('HTTP/1.1 301 Moved Permanently');
+						} elseif ($type == '302') {
+							header('HTTP/1.1 302 Moved Temporarily');
+						}
+						if($counted) {
+							header ('Location: ' . $requestTo,true,$type);
+							exit();
+						}
 					}
 				} else {
 					unset($url_request);

@@ -25,6 +25,7 @@ class Zone_Redirect_Model_Display extends Zone_Redirect_Model_Config {
         global $wpdb;
 
         $this->redirect_links = "`" . $wpdb->prefix . "zn_redirect_links`";
+        $this->redirect_visits = "`" . $wpdb->prefix . "zn_redirect_visits`";
     }
 
     public function getAllLinks() {
@@ -81,6 +82,7 @@ class Zone_Redirect_Model_Display extends Zone_Redirect_Model_Config {
       return $result;
     }
 
+    /** NOT USING ANYMORE - OLD REQEUST */
     public function getLinkRequest($request)
     {
       $db = $this->db_connect();
@@ -106,6 +108,18 @@ class Zone_Redirect_Model_Display extends Zone_Redirect_Model_Config {
         return $row['Status'];
       } else {
         die("MYSQL Error : " . mysqli_error($db));
+      }
+    }
+
+    public function getAllHistory() {
+      $db = $this->db_connect();
+      $sql= "
+        SELECT * FROM ". $this->redirect_visits;
+      $result = $db->query($sql);
+      if($result){
+        return $result;
+      }else{
+        die("MYSQL Error : ".mysqli_error($db));
       }
     }
 }

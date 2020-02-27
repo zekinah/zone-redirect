@@ -26,6 +26,7 @@ class Zone_Redirect_Model_Update extends Zone_Redirect_Model_Config
         global $wpdb;
 
         $this->redirect_links = "`" . $wpdb->prefix . "zn_redirect_links`";
+        $this->redirect_visits = "`" . $wpdb->prefix . "zn_redirect_visits`";
     }
 
     public function update_redirection_link($zn_id,$zn_from,$zn_to,$zn_type){

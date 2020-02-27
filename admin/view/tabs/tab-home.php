@@ -27,23 +27,3 @@
         </div>
     </div>
 </div>
-<div class="row">
-        <div class="col-12">
-            <div class="card">
-                <h2>Top 5 Most Redirection Links Visited</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Top</th>
-                            <th>Link From</th>
-                            <th>Link To</th>
-                            <th>Last Date and time Visited</th>
-                            <th>Total number of Visits</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
