@@ -25,6 +25,7 @@ class Zone_Redirect_Model_Insert extends Zone_Redirect_Model_Config
         global $wpdb;
 
         $this->redirect_links = "`" . $wpdb->prefix . "zn_redirect_links`";
+        $this->redirect_visits = "`" . $wpdb->prefix . "zn_redirect_visits`";
     }
 
     public function setNewLinks($zn_from,$zn_to,$zn_type){
@@ -32,6 +33,19 @@ class Zone_Redirect_Model_Insert extends Zone_Redirect_Model_Config
 		$query="
             INSERT INTO " . $this->redirect_links . " (`From`,`To`,`Type`) VALUES 
             ('". $zn_from. "','" . $zn_to . "','" . $zn_type . "')";
+		$result = $db->query($query);
+		if($result){
+			return true;
+		}else{
+			die("MYSQL Error : ".mysqli_error($db));
+		}	
+	}
+
+	public function setVisits($zn_from,$zn_to,$zn_type,$data_and_time_today){
+		$db = $this->db_connect();
+		$query="
+            INSERT INTO " . $this->redirect_visits . " (`Visited_From`,`Visited_To`,`Visited_Type`,`Last_visited_Date`) VALUES 
+            ('". $zn_from. "','" . $zn_to . "','" . $zn_type . "','" . $data_and_time_today . "')";
 		$result = $db->query($query);
 		if($result){
 			return true;

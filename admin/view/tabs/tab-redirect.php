@@ -47,7 +47,7 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
                 <th>From</th>
                 <th>To</th>
                 <th>Type</th>
-                <th>Date</th>
+                <th>Date Added</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>

@@ -108,8 +108,14 @@ class Zone_Redirect_Public {
 					} elseif ($type == '302') {
 						header('HTTP/1.1 302 Moved Temporarily');
 					}
-					header ('Location: ' . $requestTo);
-					exit();
+					$data_and_time_today = date('Y-m-d H:i:s');
+					$counted = $this->insert->setVisits($requestFrom,$requestTo,$type,$data_and_time_today);
+					if($counted) {
+						header ('Location: ' . $requestTo,true,$type);
+						exit();
+					}
+				} else {
+					unset($url_request);
 				}
 			}	
 			

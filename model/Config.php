@@ -52,15 +52,27 @@ class Zone_Redirect_Model_Config
 			 `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			 PRIMARY KEY (`Redirect_ID`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
-			";
+            ";
+        
+        $query1 = "
+            CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "zn_redirect_visits` (
+            `RedirectVisit_ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Visited_From` TEXT NOT NULL,
+            `Visited_To` TEXT NOT NULL,
+            `Visited_Type` varchar(50) NOT NULL,
+            `Last_visited_Date` timestamp NOT NULL,
+            PRIMARY KEY (`RedirectVisit_ID`)
+           ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+        ";
        
         $sql = $db->query($query);
+        $sql1 = $db->query($query1);
 
-        if ($sql) {
+        if ($sql && $sql1) {
                 return true;
         } else {
             die("MYSQL Error : " . mysqli_error($db));
-            // DROP TABLE `wp_zn_redirect_links`
+            // DROP TABLE `wp_zn_redirect_links`, `wp_zn_redirect_visits`
         }
     }
 }
