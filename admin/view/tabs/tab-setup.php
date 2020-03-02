@@ -35,6 +35,11 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
                     <input class="form-check-input zn_update_data" id="zn_update_data" data-nonce="<?= $zn_form_nonce ?>" type="checkbox" name="zn_update_data" data-toggle="toggle">
                     <br><?php _e( 'Will update exisiting database rows when a duplicated primary key is encountered. Defaults to all rows inserted as new rows.'); ?>
                 </div>
+                <?php
+                    $csvpath = WP_PLUGIN_URL .'/Zone-Redirect/admin/file/zone-redirect-sampledata.csv';
+                    
+                ?>
+                <strong><label for="">Download the sample data. <a href="<?=$csvpath?>" download="zone-redirect-sampledata.csv">here</a></label></strong>
                 <button id="btn-import" data-zn_nonce="<?=$zn_form_nonce?>" type="button" class="btn btn-import btn-zn-primary pull-r">Import</button>
             </div>
         </div>
