@@ -1,8 +1,7 @@
 (function ($) {
     'use strict';
     $ = jQuery.noConflict();
-    $(window).load(function () {
-        
+    $(window).on('load', function () {
         /** Add Link */
         $("#btn-addLink").on("click", function (event) {
             var zn_txt_from = $('#zn_txt-from').val();

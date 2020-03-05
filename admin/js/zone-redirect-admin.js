@@ -1,7 +1,7 @@
 (function( $ ) {
 	'use strict';
 	$ = jQuery.noConflict();
-	 $( window ).load(function() {
+	$(window).on('load', function () {
 		console.log('Loading Resources...................100%');
 		/** Generate DataTable */
 		$('#tbl-redirect').DataTable({
