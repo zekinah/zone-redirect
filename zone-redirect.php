@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Zone - Redirect
  * Plugin URI:        https://github.com/zekinah/Zone-Redirect
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       This plugin helps you manage and create 301 & 302 redirects for your WordPress site to improve SEO and visitor experience. With a user-friendly interface, Zone Redirect is easy to install and configure.
  * Version:           1.0.0
  * Author:            Zekinah Lecaros
  * Author URI:        https://github.com/zekinah
