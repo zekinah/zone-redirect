@@ -39,3 +39,5 @@ Zone Redirect helps you manage and create 301 & 302 redirects for your WordPress
 ## Contributor
 
 * **Zekinah Joy Lecaros** - *Initial work* - [Zekinah Lecaros](https://github.com/zekinah)
+
+<a href="https://www.buymeacoffee.com/zekinah" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
