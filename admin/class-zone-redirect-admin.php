@@ -68,7 +68,8 @@ class Zone_Redirect_Admin {
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/zone-redirect-admin.css', array(), $this->version, 'all' );
 		/* Bootstrap 4 CSS */
-		echo '<link rel="stylesheet" href="'.plugin_dir_url(__FILE__) . 'css/bootstrap/bootstrap.min.css">';
+		// echo '<link rel="stylesheet" href="'.plugin_dir_url(__FILE__) . 'css/bootstrap/bootstrap.min.css">';
+		wp_enqueue_style('zone-redirect-bootstrap-css', plugin_dir_url(__FILE__) . 'css/bootstrap/bootstrap.min.css', array(), $this->version);
 		wp_enqueue_style('zone-redirect-bootstrap-toggle', plugin_dir_url(__FILE__) . 'css/bootstrap/bootstrap-toggle.min.css', array(), $this->version);
 		wp_enqueue_style('zone-redirect-datatable-css', plugin_dir_url(__FILE__) . 'css/datatable/jquery.dataTables.css', array(), $this->version);
 		wp_enqueue_style('zone-redirect-pnotify', plugin_dir_url(__FILE__) . 'css/pnotify/pnotify.css', array(), $this->version);
@@ -85,7 +86,7 @@ class Zone_Redirect_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/zone-redirect-admin.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script('jquery');
 		/* Bootstrap 4 JS */
-		wp_enqueue_script('zone-bootstrap-js', plugin_dir_url(__FILE__) . 'js/bootstrap/bootstrap.min.js', array('jquery'), $this->version);
+		wp_enqueue_script('zone-redirect-bootstrap-js', plugin_dir_url(__FILE__) . 'js/bootstrap/bootstrap.min.js', array('jquery'), $this->version);
 		wp_enqueue_script('zone-redirect-toggle', plugin_dir_url(__FILE__) . 'js/bootstrap/bootstrap-toggle.min.js', array('jquery'), $this->version);
 		wp_enqueue_script('zone-redirect-fontawesome', plugin_dir_url(__FILE__) . 'js/fontawesome/all.js', array('jquery'), '5.9.0', false);
 		wp_enqueue_script('zone-redirect-pnotify', plugin_dir_url(__FILE__) . 'js/pnotify/pnotify.js', array('jquery'), $this->version);
@@ -109,7 +110,8 @@ class Zone_Redirect_Admin {
 
 	public function zoneOptions()
 	{
-		add_menu_page(
+		global $zoneRedirectMenu;
+		$zoneRedirectMenu = add_menu_page(
 			'Zone Redirect', 	//Page Title
 			'Zone Redirect',   //Menu Title
 			'manage_options', 			//Capability
@@ -132,8 +134,13 @@ class Zone_Redirect_Admin {
 		extract($_POST);
 		$data = array();
 		if (isset($zn_nonce)) {
-			$tbl_links = $this->insert->setNewLinks($zn_txt_from,$zn_txt_to,$zn_txt_type);
-			$tbl_getlink = $this->display->getLastLink();
+			$response = wp_remote_get( esc_url_raw( $zn_txt_to ) ); // no need to escape entities
+			if ( ! is_wp_error( $response ) ) {
+				$tbl_links = $this->insert->setNewLinks($zn_txt_from,$zn_txt_to,$zn_txt_type);
+				$tbl_getlink = $this->display->getLastLink();
+			} else {
+				$data['confirm'] = 0;
+			}
 			if ($tbl_links) {
 				$data['confirm'] = 1;
 				$temp_html = '';
@@ -185,8 +192,13 @@ class Zone_Redirect_Admin {
 	{
 		extract($_POST);
 		if (isset($zn_edit_id)) {
-			$tbl_linkupdate = $this->update->update_redirection_link($zn_edit_id, $zn_txt_from, $zn_txt_to, $zn_txt_type);
-			$tbl_getlink = $this->display->getLinkInfo($zn_edit_id);
+			$response = wp_remote_get( esc_url_raw( $zn_txt_to ) ); // no need to escape entities
+			if ( ! is_wp_error( $response ) ) {
+				$tbl_linkupdate = $this->update->update_redirection_link($zn_edit_id, $zn_txt_from, $zn_txt_to, $zn_txt_type);
+				$tbl_getlink = $this->display->getLinkInfo($zn_edit_id);
+			} else {
+				$data['confirm'] = 0;
+			}
 			if ($tbl_linkupdate) {
 				$data['confirm'] = 1;
 				$temp_html = '';
