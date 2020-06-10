@@ -13,10 +13,11 @@
  */
 $zn_form_nonce = wp_create_nonce('zn_form_nonce');
 ?>
+<h3 class="zone-title-short">Setup</h3>
 <div class="row">
     <div class="col-md-6">
         <div class="card">
-        <h2>Import Data</h2>
+        <h3 class="zone-title-sub">Import Data</h3>
             <div class="form">
                 <div class="form-group">
                     <label><strong>Select Input File:</strong></label>
@@ -47,7 +48,7 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
     </div>
     <div class="col-md-6">
         <div class="card">
-            <h2>Export Data</h2>
+            <h3 class="zone-title-sub">Export Data</h3>
             <p>The file that will be exported is a .csv.</p>
             <div class="form">
                 <button id="btn-extract" data-zn_nonce="<?=$zn_form_nonce?>" type="button" class="btn btn-save-settings">Export</button>

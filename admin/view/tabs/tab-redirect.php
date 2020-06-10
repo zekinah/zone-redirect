@@ -13,13 +13,13 @@
  */
 $zn_form_nonce = wp_create_nonce('zn_form_nonce');
 ?>
-<h2>Information</h2>
+<h3 class="zone-title-short">Information</h3>
 <ul>
     <li><strong>301</strong> - <?php _e( 'HTTP response status code 302 Moved Permanently is used for permanent URL redirection, meaning current links or records using the URL that the response is received for should be updated.'); ?></li>
     <li><strong>302</strong> - <?php _e( 'HTTP response status code 302 redirect status response code indicates that the resource requested has been temporarily moved to the URL given by the Location header.'); ?></li>
 </ul>
 <div class="card">
-    <h2>Add new Links</h2>
+    <h3 class="zone-title-sub">Add new Links</h3>
     <div class="row">
         <div class="col">
             <label>From URL <span>*</span> (Page link within the site)</label>
@@ -44,7 +44,7 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
     </div>
 </div>
 <div class="card">
-    <h2>List of Links</h2>
+    <h3 class="zone-title-sub">List of Links</h3>
     <table id="tbl-redirect" class="display nowrap" style="width:100%">
         <thead>
             <tr>
@@ -88,7 +88,7 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
 </div>
 <?php add_thickbox(); ?>
 <div id="edit-links" style="display:none;">
-    <h2>Links Details</h2>
+    <h3 class="zone-title-sub">Links Details</h3>
     <div class="container-link-info"></div>
     <button id="btn-updateLink" data-zn_nonce="<?=$zn_form_nonce?>" type="button" class="btn btn-save-settings pull-r">Save</button>
 </div>

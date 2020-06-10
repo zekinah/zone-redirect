@@ -13,7 +13,7 @@
  */
 ?>
 <div class="card">
-    <h2>History Logs visits</h2>
+    <h3 class="zone-title-short">History Logs visits</h3>
     <table id="tbl-history" class="display nowrap" style="width:100%">
         <thead>
             <tr>
