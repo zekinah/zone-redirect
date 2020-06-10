@@ -131,8 +131,10 @@ class Zone_Redirect_Admin {
 
 	public function save_redirection_link()
 	{
-		extract($_POST);
 		$data = array();
+		$zn_txt_from = sanitize_text_field($_POST['zn_txt_from']);
+		$zn_txt_to = sanitize_text_field($_POST['zn_txt_to']);
+		$zn_txt_type = sanitize_text_field($_POST['zn_txt_type']);
 		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$response = wp_remote_get( esc_url_raw( $zn_txt_to ) ); // no need to escape entities
 			if ( ! is_wp_error( $response ) ) {
@@ -191,7 +193,10 @@ class Zone_Redirect_Admin {
 
 	public function update_redirection_link()
 	{
-		extract($_POST);
+		$zn_edit_id = sanitize_text_field($_POST['zn_edit_id']);
+		$zn_txt_from = sanitize_text_field($_POST['zn_txt_from']);
+		$zn_txt_to = sanitize_text_field($_POST['zn_txt_to']);
+		$zn_txt_type = sanitize_text_field($_POST['zn_txt_type']);
 		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$response = wp_remote_get( esc_url_raw( $zn_txt_to ) ); // no need to escape entities
 			if ( ! is_wp_error( $response ) ) {
@@ -247,15 +252,14 @@ class Zone_Redirect_Admin {
 
 	public function load_link_info()
 	{
-		extract($_POST);
 		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$dataFeed = '';
 			$dataFeed .= '<div class="row">
-				<input type="hidden" id="zn_edit_id" value="'.$link_edit_id.'">
+				<input type="hidden" id="zn_edit_id" value="'.sanitize_text_field($_POST['link_edit_id']).'">
 				<div class="col-md-12">
 					<div class="form-group">
 						<label><strong>From URL</strong></label>
-						<input type="text" class="form-control" id="zn_edit_from" value="' . $link_edit_from . '" />
+						<input type="text" class="form-control" id="zn_edit_from" value="' . sanitize_text_field($_POST['link_edit_from']) . '" />
 					</div>
 				</div>
 			</div>
@@ -263,13 +267,13 @@ class Zone_Redirect_Admin {
 				<div class="col-md-12">
 					<div class="form-group">
 						<label><strong>To URL</strong></label>
-						<input type="text" class="form-control" id="zn_edit_to" value="' . $link_edit_to . '" />
+						<input type="text" class="form-control" id="zn_edit_to" value="' . sanitize_text_field($_POST['link_edit_to']) . '" />
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="form-group">
 						<label><strong>Redirection Type</strong></label>
-						<input type="text" class="form-control" id="zn_edit_type" value="' . $link_edit_type . '" readonly/>
+						<input type="text" class="form-control" id="zn_edit_type" value="' . sanitize_text_field($_POST['link_edit_type']) . '" readonly/>
 					</div>
 				</div>
 			</div>';
@@ -280,7 +284,7 @@ class Zone_Redirect_Admin {
 
 	public function trash_link()
 	{
-		extract($_POST);
+		$link_rem_id = sanitize_text_field($_POST['link_rem_id']);
 		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$tbl_links = $this->update->trashLink($link_rem_id);
 			if ($tbl_links) {
@@ -295,7 +299,7 @@ class Zone_Redirect_Admin {
 
 	public function change_link_status()
 	{
-		extract($_POST);
+		$zn_link_stat_id = sanitize_text_field($_POST['zn_link_stat_id']);
 		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$link_stat = $this->display->checkLinkStatus($zn_link_stat_id);
 			if ($link_stat) {
@@ -314,7 +318,9 @@ class Zone_Redirect_Admin {
 
 	public function importing_spreadsheet()
 	{
-		extract($_POST);
+		$zn_import_file = sanitize_text_field($_POST['zn_import_file']);
+		$zn_start_row = sanitize_text_field($_POST['zn_start_row']);
+		$zn_update_data = sanitize_text_field($_POST['zn_update_data']);
 		if(check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )){
 			$extension = pathinfo($zn_import_file, PATHINFO_EXTENSION);
 			// If file extension is 'csv'
@@ -334,7 +340,6 @@ class Zone_Redirect_Admin {
 
 	public function exporting_spreadsheet()
 	{
-		extract($_POST);
 		if(check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )){
 			ob_end_clean();
 			$field = '';

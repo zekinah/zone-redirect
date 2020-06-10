@@ -19,7 +19,7 @@ URL redirection is done for various reasons:
 
 ## Description
 
-Zone Redirect helps you manage and create 301 & 302 redirects for your WordPress site to improve SEO and visitor experience. With a user-friendly interface, 301 Redirects is easy to install and configure.
+Zone Redirect helps you manage and create 301 & 302 redirects for your WordPress site to improve SEO and visitor experience. With a user-friendly interface, Zone Redirect is easy to install and configure.
 
 ## Features
 
@@ -30,6 +30,7 @@ Zone Redirect helps you manage and create 301 & 302 redirects for your WordPress
 * List of Links
 * Import Data via CSV
 * Export Data in CSV
+* History Logs
 
 ## Installation
 

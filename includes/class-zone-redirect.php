@@ -154,8 +154,7 @@ class Zone_Redirect {
 
 		$plugin_admin = new Zone_Redirect_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		extract($_GET);
-		if ($page == $this->plugin_name) {
+		if ($_GET['page'] == $this->plugin_name) {
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		}

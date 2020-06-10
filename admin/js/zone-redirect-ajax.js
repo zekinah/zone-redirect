@@ -188,24 +188,7 @@
                 }
             });
         });
-        // Live Notification in Bubble Popup Sidebar
-        // setInterval(liveNotificationGDPR, 5000);
    });
-
-   function liveNotificationGDPR() {
-       $.ajax({
-           url: settingsAjax.ajax_url,
-           type: 'POST',
-           data: {
-               'action': 'zoneLiveNotifGDPR',
-               '_ajax_nonce': redirectsettingsAjax.ajax_nonce
-           },
-           success: function (data) {
-               $('#toplevel_page_zone-gdpr span.awaiting-mod').empty();
-               $('#toplevel_page_zone-gdpr span.awaiting-mod').append(data);
-           }
-       });
-   }
 
     function downloadNotif(label) {
         new PNotify({
