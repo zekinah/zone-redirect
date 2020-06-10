@@ -11,7 +11,6 @@
  * @package    Zone_Redirect
  * @subpackage Zone_Redirect/admin/partials
  */
-$zn_form_nonce = wp_create_nonce('zn_form_nonce');
 ?>
 <h3 class="zone-title-short">Information</h3>
 <ul>
@@ -39,7 +38,7 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
         </div>
         <div class="col">
             <label></label>
-            <button id="btn-addLink" data-zn_nonce="<?=$zn_form_nonce?>" type="button" class="btn btn-save-settings">Add New Links</button>
+            <button id="btn-addLink"  type="button" class="btn btn-save-settings">Add New Links</button>
         </div>
     </div>
 </div>
@@ -90,5 +89,5 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
 <div id="edit-links" style="display:none;">
     <h3 class="zone-title-sub">Links Details</h3>
     <div class="container-link-info"></div>
-    <button id="btn-updateLink" data-zn_nonce="<?=$zn_form_nonce?>" type="button" class="btn btn-save-settings pull-r">Save</button>
+    <button id="btn-updateLink"  type="button" class="btn btn-save-settings pull-r">Save</button>
 </div>

@@ -29,12 +29,12 @@
 					'link_edit_id': $(this).data('link_edit_id'),
 					'link_edit_from': $(this).data('link_edit_from'),
 					'link_edit_to': $(this).data('link_edit_to'),
-					'link_edit_type': $(this).data('link_edit_type')
+					'link_edit_type': $(this).data('link_edit_type'),
+					'_ajax_nonce': redirectsettingsAjax.ajax_nonce,
 				},
 				success: function (data) {
 					$('.container-link-info').empty();
 					$('.container-link-info').append(data);
-					//  alert(data);
 				},
 				error: function (errorThrown) {
 					console.log(errorThrown);

@@ -17,15 +17,13 @@
                             'zn_txt_from': zn_txt_from,
                             'zn_txt_to': zn_txt_to,
                             'zn_txt_type': zn_txt_type,
-                            'zn_nonce': $(this).data('zn_nonce')
+                            '_ajax_nonce': redirectsettingsAjax.ajax_nonce
                         },
                         success: function (data) {
-                            data = data.replace(/\}\d/, "}");
-                            var response = $.parseJSON(data);
-                            if(response.confirm){
+                            if(data.confirm){
                                 $('#zn_txt-from').val('');
                                 $('#zn_txt-to').val('');
-                                $('#tbl-redirect #body_links').prepend(response.html);
+                                $('#tbl-redirect #body_links').prepend(data.html);
                                 successNotif('Successfully added a new redirection');
                             } else {
                                 errorNotif('There is an Error occured while saving the data');
@@ -60,14 +58,12 @@
                             'zn_txt_from': zn_txt_from,
                             'zn_txt_to': zn_txt_to,
                             'zn_txt_type': zn_txt_type,
-                            'zn_nonce': $(this).data('zn_nonce')
+                            '_ajax_nonce': redirectsettingsAjax.ajax_nonce,
                         },
                         success: function (data) {
-                            data = data.replace(/\}\d/, "}");
-                            var response = $.parseJSON(data);
-                            if(response.confirm){
+                            if(data.confirm){
                                 $('#link-'+zn_edit_id).empty();
-                                $('#link-'+zn_edit_id).append(response.html);
+                                $('#link-'+zn_edit_id).append(data.html);
                                 successNotif('Successfully updated the redirection');
                             } else {
                                 errorNotif('There is an Error occured while saving the data');
@@ -94,7 +90,8 @@
                     type: 'POST',
                     data: {
                         'action': 'trash_link',
-                        'link_rem_id': $button.data('link_rem_id')
+                        'link_rem_id': $button.data('link_rem_id'),
+                        '_ajax_nonce': redirectsettingsAjax.ajax_nonce
                     },
                     success: function (data) {
                         if (data == 1) {
@@ -121,7 +118,8 @@
                 type: 'POST',
                 data: {
                     'action': 'change_link_status',
-                    'zn_link_stat_id': $(this).data('zn_link_stat_id')
+                    'zn_link_stat_id': $(this).data('zn_link_stat_id'),
+                    '_ajax_nonce': redirectsettingsAjax.ajax_nonce
                 },
                 success: function (data) {
                     if (data == 1) {
@@ -157,7 +155,7 @@
                         'zn_import_file': fileData,
                         'zn_start_row': startRow,
                         'zn_update_data': updateRow,
-                        'zn_nonce': $button.data('zn_nonce')
+                        '_ajax_nonce': redirectsettingsAjax.ajax_nonce
                     },
                     success: function (data) {
                         successNotif(data);
@@ -178,7 +176,7 @@
                 type: 'POST',
                 data: {
                     'action': 'exporting_spreadsheet',
-                    'zn_nonce': $button.data('zn_nonce')
+                    '_ajax_nonce': redirectsettingsAjax.ajax_nonce,
                 },
                 success: function (data) {
                     let csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(data);
@@ -200,6 +198,7 @@
            type: 'POST',
            data: {
                'action': 'zoneLiveNotifGDPR',
+               '_ajax_nonce': redirectsettingsAjax.ajax_nonce
            },
            success: function (data) {
                $('#toplevel_page_zone-gdpr span.awaiting-mod').empty();

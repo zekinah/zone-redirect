@@ -92,7 +92,7 @@ class Zone_Redirect_Admin {
 		wp_enqueue_script('zone-redirect-pnotify', plugin_dir_url(__FILE__) . 'js/pnotify/pnotify.js', array('jquery'), $this->version);
 		wp_enqueue_script('zone-redirect-datatable-js', plugin_dir_url(__FILE__) . 'js/datatable/jquery.dataTables.js', array('jquery'), $this->version);
 		wp_enqueue_script('zone-redirect-ajax', plugin_dir_url(__FILE__)  . 'js/zone-redirect-ajax.js', array('jquery', $this->plugin_name), $this->version, false);
-		wp_localize_script('zone-redirect-ajax', 'redirectsettingsAjax', array('ajax_url' => admin_url('admin-ajax.php')));
+		wp_localize_script('zone-redirect-ajax', 'redirectsettingsAjax', array('ajax_url' => admin_url('admin-ajax.php'),'ajax_nonce'=>wp_create_nonce('zn-ajax-nonce')));
 
 	}
 
@@ -133,7 +133,7 @@ class Zone_Redirect_Admin {
 	{
 		extract($_POST);
 		$data = array();
-		if (isset($zn_nonce)) {
+		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$response = wp_remote_get( esc_url_raw( $zn_txt_to ) ); // no need to escape entities
 			if ( ! is_wp_error( $response ) ) {
 				$tbl_links = $this->insert->setNewLinks($zn_txt_from,$zn_txt_to,$zn_txt_type);
@@ -143,7 +143,7 @@ class Zone_Redirect_Admin {
 			}
 			if ($tbl_links) {
 				$data['confirm'] = 1;
-				$temp_html = '';
+				$temp_html = '<tr>';
 				while($row = $tbl_getlink->fetch_assoc()) {
 					if($row['Status'] == '1') {
 						$status = 'checked';
@@ -177,21 +177,22 @@ class Zone_Redirect_Admin {
 									data-link_rem_id="'. $row['Redirect_ID'] . '"
 									title="Move to trash"><i class="far fa-trash-alt"></i></a>
 								</td>';
-				
+					$temp_html .= '</tr>';
 				}
 				$data['html'] = $temp_html;
 			} else {
 				$data['confirm'] = 0;
 			}
 		}
-		echo json_encode($data);
-		exit();
+		wp_send_json($data);
+		echo $data;
+		wp_die();
 	}
 
 	public function update_redirection_link()
 	{
 		extract($_POST);
-		if (isset($zn_edit_id)) {
+		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$response = wp_remote_get( esc_url_raw( $zn_txt_to ) ); // no need to escape entities
 			if ( ! is_wp_error( $response ) ) {
 				$tbl_linkupdate = $this->update->update_redirection_link($zn_edit_id, $zn_txt_from, $zn_txt_to, $zn_txt_type);
@@ -240,14 +241,14 @@ class Zone_Redirect_Admin {
 				$data['confirm'] = 0;
 			}
 		}
-		echo json_encode($data);
-		exit();
+		wp_send_json($data);
+		wp_die();
 	}
 
 	public function load_link_info()
 	{
 		extract($_POST);
-		if (isset($link_edit_id)) {
+		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$dataFeed = '';
 			$dataFeed .= '<div class="row">
 				<input type="hidden" id="zn_edit_id" value="'.$link_edit_id.'">
@@ -274,13 +275,13 @@ class Zone_Redirect_Admin {
 			</div>';
 		}
 		echo $dataFeed;
-		exit();
+		wp_die();
 	}
 
 	public function trash_link()
 	{
 		extract($_POST);
-		if (isset($link_rem_id)) {
+		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$tbl_links = $this->update->trashLink($link_rem_id);
 			if ($tbl_links) {
 				$data = 1;
@@ -289,13 +290,13 @@ class Zone_Redirect_Admin {
 			}
 		}
 		echo $tbl_links;
-		exit();
+		wp_die();
 	}
 
 	public function change_link_status()
 	{
 		extract($_POST);
-		if (isset($zn_link_stat_id)) {
+		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$link_stat = $this->display->checkLinkStatus($zn_link_stat_id);
 			if ($link_stat) {
 				/** Change to OFF link */
@@ -308,13 +309,13 @@ class Zone_Redirect_Admin {
 			}
 		}
 		echo $data;
-		exit();
+		wp_die();
 	}
 
 	public function importing_spreadsheet()
 	{
 		extract($_POST);
-		if(isset($zn_nonce)){
+		if(check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )){
 			$extension = pathinfo($zn_import_file, PATHINFO_EXTENSION);
 			// If file extension is 'csv'
 			if(!empty($zn_import_file) && $extension == 'csv'){
@@ -328,13 +329,13 @@ class Zone_Redirect_Admin {
 				echo "Invalid Extension";
 			}
 		}
-		exit();
+		wp_die();
 	}
 
 	public function exporting_spreadsheet()
 	{
 		extract($_POST);
-		if(isset($zn_nonce)){
+		if(check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )){
 			ob_end_clean();
 			$field = '';
 			$getField = '';
@@ -369,6 +370,6 @@ class Zone_Redirect_Admin {
 
 			echo $fields;
 		}
-		exit();
+		wp_die();
 	}
 }
