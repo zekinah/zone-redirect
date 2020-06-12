@@ -25,6 +25,8 @@
                                 $('#zn_txt-to').val('');
                                 $('#tbl-redirect #body_links').prepend(data.html);
                                 successNotif('Successfully added a new redirection');
+                            } else if (data.confirm == 2) {
+                                warningrNotif('Please add valid URL.');
                             } else {
                                 errorNotif('There is an Error occured while saving the data');
                             }

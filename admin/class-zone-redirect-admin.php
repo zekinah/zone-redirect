@@ -138,28 +138,28 @@ class Zone_Redirect_Admin {
 		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$response = wp_remote_get( esc_url_raw( $zn_txt_to ) ); // no need to escape entities
 			if ( ! is_wp_error( $response ) ) {
-				$tbl_links = $this->insert->setNewLinks($zn_txt_from,$zn_txt_to,$zn_txt_type);
+				$tbl_links = $this->insert->addNewLinks($zn_txt_from,$zn_txt_to,$zn_txt_type);
 				$tbl_getlink = $this->display->getLastLink();
 			} else {
-				$data['confirm'] = 0;
+				$data['confirm'] = 2;
 			}
 			if ($tbl_links) {
 				$data['confirm'] = 1;
 				$temp_html = '<tr>';
-				while($row = $tbl_getlink->fetch_assoc()) {
-					if($row['Status'] == '1') {
+				foreach($tbl_getlink as $getLinkID => $row ){
+					if($row->Status == '1') {
 						$status = 'checked';
 					} else {
 						$status = '';
 					}
-					$temp_html .= '<td>' .$row['Redirect_ID']. '</td>';
-					$temp_html .= '<td>' .$row['From']. '</td>';
-					$temp_html .= '<td>' .$row['To']. '</td>';
-					$temp_html .= '<td>' .$row['Type']. '</td>';
-					$temp_html .= '<td>' .date('M d, Y', strtotime($row['Date'])). '</td>';
+					$temp_html .= '<td>' .$row->Redirect_ID. '</td>';
+					$temp_html .= '<td>' .$row->From. '</td>';
+					$temp_html .= '<td>' .$row->To. '</td>';
+					$temp_html .= '<td>' .$row->Type. '</td>';
+					$temp_html .= '<td>' .date('M d, Y', strtotime($row->Date)). '</td>';
 					$temp_html .= '<td>
 								<div class="toggle btn btn-primary" data-toggle="toggle" style="width: 50.9531px; height: 28px;">
-								<input class="form-check-input" id="zn_link_stat" type="checkbox" data-redirectid_stat="'. $row['Redirect_ID'] .'" name="zn_link_stat" '. $status .' data-toggle="toggle">
+								<input class="form-check-input" id="zn_link_stat" type="checkbox" data-redirectid_stat="'. $row->Redirect_ID .'" name="zn_link_stat" '. $status .' data-toggle="toggle">
 								<div class="toggle-group">
 									<label class="btn btn-primary toggle-on">On</label>
 									<label class="btn btn-default active toggle-off">Off</label>
@@ -170,13 +170,13 @@ class Zone_Redirect_Admin {
 								';
 					$temp_html .= '<td>
 									<a href="#TB_inline?width=600&height=400&inlineId=edit-links" class="thickbox btn btn-info btn-xs btn-link-update"
-									data-link_edit_id="'. $row['Redirect_ID'] . '"
-									data-link_edit_from="'. $row['From'] . '"
-									data-link_edit_to="'. $row['To'] . '"
-									data-link_edit_type="'. $row['Type'] . '"
+									data-link_edit_id="'. $row->Redirect_ID . '"
+									data-link_edit_from="'. $row->From . '"
+									data-link_edit_to="'. $row->To . '"
+									data-link_edit_type="'. $row->Type . '"
 									title="Update"><i class="fas fa-edit"></i></a>
 									<a href="#" class="btn btn-danger btn-xs btn-link-remove"
-									data-link_rem_id="'. $row['Redirect_ID'] . '"
+									data-link_rem_id="'. $row->Redirect_ID . '"
 									title="Move to trash"><i class="far fa-trash-alt"></i></a>
 								</td>';
 					$temp_html .= '</tr>';
@@ -208,20 +208,20 @@ class Zone_Redirect_Admin {
 			if ($tbl_linkupdate) {
 				$data['confirm'] = 1;
 				$temp_html = '';
-				while($row = $tbl_getlink->fetch_assoc()) {
-					if($row['Status'] == '1') {
+				foreach($tbl_getlink as $getLinkID => $row) {
+					if($row->Status == '1') {
 						$status = 'checked';
 					} else {
 						$status = '';
 					}
-					$temp_html .= '<td>' .$row['Redirect_ID']. '</td>';
-					$temp_html .= '<td>' .$row['From']. '</td>';
-					$temp_html .= '<td>' .$row['To']. '</td>';
-					$temp_html .= '<td>' .$row['Type']. '</td>';
-					$temp_html .= '<td>' .date('M d, Y', strtotime($row['Date'])). '</td>';
+					$temp_html .= '<td>' .$row->Redirect_ID. '</td>';
+					$temp_html .= '<td>' .$row->From. '</td>';
+					$temp_html .= '<td>' .$row->To. '</td>';
+					$temp_html .= '<td>' .$row->Type. '</td>';
+					$temp_html .= '<td>' .date('M d, Y', strtotime($row->Date)). '</td>';
 					$temp_html .= '<td>
 								<div class="toggle btn btn-primary" data-toggle="toggle" style="width: 50.9531px; height: 28px;">
-									<input class="form-check-input" id="zn_link_stat" type="checkbox" data-redirectid_stat="'. $row['Redirect_ID'] .'" name="zn_link_stat" '. $status .' data-toggle="toggle">
+									<input class="form-check-input" id="zn_link_stat" type="checkbox" data-redirectid_stat="'. $row->Redirect_ID .'" name="zn_link_stat" '. $status .' data-toggle="toggle">
 									<div class="toggle-group">
 										<label class="btn btn-primary toggle-on">On</label>
 										<label class="btn btn-default active toggle-off">Off</label>
@@ -230,13 +230,13 @@ class Zone_Redirect_Admin {
 								</div></td>';
 					$temp_html .= '<td>
 									<a href="#TB_inline?width=600&height=400&inlineId=edit-links" class="thickbox btn btn-info btn-xs btn-link-update"
-									data-link_edit_id="'. $row['Redirect_ID'] . '"
-									data-link_edit_from="'. $row['From'] . '"
-									data-link_edit_to="'. $row['To'] . '"
-									data-link_edit_type="'. $row['Type'] . '"
+									data-link_edit_id="'. $row->Redirect_ID . '"
+									data-link_edit_from="'. $row->From . '"
+									data-link_edit_to="'. $row->To . '"
+									data-link_edit_type="'. $row->Type . '"
 									title="Update"><i class="fas fa-edit"></i></a>
 									<a href="#" class="btn btn-danger btn-xs btn-link-remove"
-									data-link_rem_id="'. $row['Redirect_ID'] . '"
+									data-link_rem_id="'. $row->Redirect_ID . '"
 									title="Move to trash"><i class="far fa-trash-alt"></i></a>
 								</td>';
 				
@@ -287,11 +287,11 @@ class Zone_Redirect_Admin {
 		$link_rem_id = sanitize_text_field($_POST['link_rem_id']);
 		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$tbl_links = $this->update->trashLink($link_rem_id);
-			if ($tbl_links) {
-				$data = 1;
-			} else {
-				$data = 0;
-			}
+			// if ($tbl_links) {
+			// 	$data = 1;
+			// } else {
+			// 	$data = 0;
+			// }
 		}
 		echo $tbl_links;
 		wp_die();

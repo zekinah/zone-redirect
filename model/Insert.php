@@ -31,7 +31,7 @@ class Zone_Redirect_Model_Insert
 		$this->wpdb = $wpdb;
     }
 
-	public function setNewLinks($zn_from,$zn_to,$zn_type)
+	public function addNewLinks($zn_from,$zn_to,$zn_type)
 	{
 		$query="
             INSERT INTO " . $this->redirect_links . " (`From`,`To`,`Type`) VALUES 

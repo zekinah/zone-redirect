@@ -69,15 +69,13 @@ class Zone_Redirect_Model_Display {
 
     public function getLinkData()
     {
-      global $wpdb;
-      $result = $wpdb->get_results( "SELECT * FROM ". $this->redirect_links );
+      $result = $this->wpdb->get_results( "SELECT * FROM ". $this->redirect_links );
       return $result;
     }
 
     public function getColumns()
     {
-      global $wpdb;
-      $result = $wpdb->get_results( "SHOW COLUMNS FROM " . $this->redirect_links );
+      $result =$this->wpdb->get_results( "SHOW COLUMNS FROM " . $this->redirect_links );
       return $result;
     }
 
@@ -101,8 +99,9 @@ class Zone_Redirect_Model_Display {
         ";
       $result = $this->wpdb->get_results($sql);
       if ($result) {
-        $row = $result->fetch_assoc();
-        return $row['Status'];
+        foreach($result as $res => $row){
+          return $row->Status;
+        }
       } else {
         $this->wpdb->show_errors();
       }
