@@ -20,18 +20,12 @@
  * @subpackage Zone_Redirect/includes
  * @author     Zekinah Lecaros <zjlecaros@gmail.com>
  */
+	
 class Zone_Redirect_Activator {
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
 	public static function activate() {
 		$db = new Zone_Redirect_Model_Config();
-		$db->createTable();	
+		$db->createTable();
 	}
 
 }

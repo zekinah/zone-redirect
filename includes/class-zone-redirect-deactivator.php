@@ -22,15 +22,9 @@
  */
 class Zone_Redirect_Deactivator {
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
 	public static function deactivate() {
-
+		$db = new Zone_Redirect_Model_Config();
+		$db->dropTable();
 	}
 
 }

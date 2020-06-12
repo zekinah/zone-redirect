@@ -94,13 +94,13 @@ class Zone_Redirect_Public {
 	}
 
 	public function redirect($url_request) {
-		$redirects = $this->display->getAllLinks();
-		if (!empty($redirects)) {
-			while($row = $redirects->fetch_assoc()) {
-				$requestFrom = $row['From'];
-				$requestTo = urldecode($row['To']);
-				$stat = $row['Status'];
-				$type = $row['Type'];
+		$tbl_redirects = $this->display->getAllLinks();
+		if (!empty($tbl_redirects)) {
+			foreach($tbl_redirects as $redirectsID => $row) {
+				$requestFrom = $row->From;
+				$requestTo = urldecode($row->To);
+				$stat = $row->Status;
+				$type = $row->Type;
 				if($stat) {
 					if(rtrim(trim($requestFrom), '/') === rtrim(trim($url_request), '/')) {
 						$data_and_time_today = date('Y-m-d H:i:s');

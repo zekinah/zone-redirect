@@ -15,48 +15,50 @@
 This Model is the parent model class that returns database object
  *******************************************************************/
 
-require_once('Config.php');
 
-class Zone_Redirect_Model_Insert extends Zone_Redirect_Model_Config
+class Zone_Redirect_Model_Insert
 {
     protected $redirect_links;
+    protected $redirect_visits;
+    protected $wpdb;
 
     public function __construct() {
         global $wpdb;
 
         $this->redirect_links = "`" . $wpdb->prefix . "zn_redirect_links`";
-        $this->redirect_visits = "`" . $wpdb->prefix . "zn_redirect_visits`";
+		$this->redirect_visits = "`" . $wpdb->prefix . "zn_redirect_visits`";
+		
+		$this->wpdb = $wpdb;
     }
 
-    public function setNewLinks($zn_from,$zn_to,$zn_type){
-		$db = $this->db_connect();
+	public function setNewLinks($zn_from,$zn_to,$zn_type)
+	{
 		$query="
             INSERT INTO " . $this->redirect_links . " (`From`,`To`,`Type`) VALUES 
             ('". $zn_from. "','" . $zn_to . "','" . $zn_type . "')";
-		$result = $db->query($query);
+		$result = $this->wpdb->query($query);
 		if($result){
 			return true;
 		}else{
-			die("MYSQL Error : ".mysqli_error($db));
+			$this->wpdb->show_errors();
 		}	
 	}
 
-	public function setVisits($zn_from,$zn_to,$zn_type,$data_and_time_today){
-		$db = $this->db_connect();
+	public function setVisits($zn_from,$zn_to,$zn_type,$data_and_time_today)
+	{
 		$query="
             INSERT INTO " . $this->redirect_visits . " (`Visited_From`,`Visited_To`,`Visited_Type`,`Last_visited_Date`) VALUES 
             ('". $zn_from. "','" . $zn_to . "','" . $zn_type . "','" . $data_and_time_today . "')";
-		$result = $db->query($query);
+		$result = $this->wpdb->query($query);
 		if($result){
 			return true;
 		}else{
-			die("MYSQL Error : ".mysqli_error($db));
+			$this->wpdb->show_errors();
 		}	
 	}
 	
 	public function importingData($zn_import_file,$zn_start_row,$zn_update_data)
 	{
-		$db = $this->db_connect();
 		$totalInserted = 0;
 		$totalDuplicated = 0;
 		$csvData = array();
@@ -73,22 +75,22 @@ class Zone_Redirect_Model_Insert extends Zone_Redirect_Model_Config
 						$query="
 							INSERT INTO " . $this->redirect_links . " (`From`,`To`,`Type`) VALUES 
 							('". $zn_from. "','" . $zn_to . "','" . $zn_type . "')";
-						$result = $db->query($query);
+						$result = $this->wpdb->query($query);
 						if($result){
 							$totalInserted++;
 						}else{
-							die("MYSQL Error : ".mysqli_error($db));
+							$this->wpdb->show_errors();
 						}
 					} else {
 						$query="
 							INSERT INTO " . $this->redirect_links . " (`From`,`To`,`Type`) VALUES 
 							('". $zn_from. "','" . $zn_to . "','" . $zn_type . "')
 							ON DUPLICATE KEY UPDATE `To` = '. $zn_to .'  ;";
-						$result = $db->query($query);
+						$result = $this->wpdb->query($query);
 						if($result){
 							$totalDuplicated++;
 						}else{
-							die("MYSQL Error : ".mysqli_error($db));
+							$this->wpdb->show_errors();
 						}
 					}
 				}

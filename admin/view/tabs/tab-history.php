@@ -26,17 +26,17 @@
         </thead>
         <tbody id="body_links">
             <?php
-            while($row = $tbl_visits->fetch_assoc()):
+            foreach($tbl_visits as $visitsID => $row) {
             ?>
-            <tr id="link-<?= $row['RedirectVisit_ID'] ?>">
-                <td><?= $row['RedirectVisit_ID'] ?></td>
-                <td><?= $row['Visited_From'] ?></td>
-                <td><?= $row['Visited_To'] ?></td>
-                <td><?= $row['Visited_Type'] ?></td>
-                <td><?= $row['Last_visited_Date'] ?></td>
+            <tr id="link-<?= $row->RedirectVisit_ID ?>">
+                <td><?= $row->RedirectVisit_ID ?></td>
+                <td><?= $row->Visited_From ?></td>
+                <td><?= $row->Visited_To ?></td>
+                <td><?= $row->Visited_Type ?></td>
+                <td><?= $row->Last_visited_Date ?></td>
             </tr>
             <?php
-            endwhile;
+            }
             ?>
         </tbody>
     </table>

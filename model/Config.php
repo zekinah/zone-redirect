@@ -14,36 +14,59 @@
 /******************************************************************
 This Model is the parent model class that returns database object
  *******************************************************************/
-
-require_once(ABSPATH . 'wp-config.php');
-
 class Zone_Redirect_Model_Config
 {
 
-    public $wpdb;
+    /**
+	 * The unique identifier of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 */
+	protected $plugin_name;
 
-    public function db_connect()
-    {
-        $localhost    = DB_HOST;
-        $user        = DB_USER;
-        $pw            = DB_PASSWORD;
-        $database    = DB_NAME;
-        $db = new mysqli($localhost, $user, $pw, $database);
-        if ($db) {
-            return $db;
-        } else {
-            die("Connection failed: " . $db->connect_error);
-        }
-    }
+	/**
+	 * The current version of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      string    $version    The current version of the plugin.
+	 */
+	protected $version;
+
+	/**
+	 * Define the core functionality of the plugin.
+	 *
+	 * Set the plugin name and the plugin version that can be used throughout the plugin.
+	 * Load the dependencies, define the locale, and set the hooks for the admin area and
+	 * the public-facing side of the site.
+	 *
+	 * @since    1.0.0
+	 */
+
+	public function __construct() {
+        global $wpdb;
+
+		if ( defined( 'ZONE_REDIRECT_VERSION' ) ) {
+			$this->version = ZONE_REDIRECT_VERSION;
+		} else {
+			$this->version = '1.0.1';
+		}
+        $this->plugin_name = 'zone-redirect';
+        $this->wpdb = $wpdb;
+
+	}
 
     public function createTable()
     {
-        global $wpdb;
-        $db = $this->db_connect();
+        $table_prefix = $this->wpdb->prefix;
+        $charset_collate = $this->wpdb->get_charset_collate();
+        $queries = array();
 
         /** Requester */
-        $query = "
-			CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "zn_redirect_links` (
+        $queries[] = "
+			CREATE TABLE IF NOT EXISTS `" . $table_prefix . "zn_redirect_links` (
 			 `Redirect_ID` int(11) NOT NULL AUTO_INCREMENT,
 			 `From` TEXT NOT NULL,
 			 `To` TEXT NOT NULL,
@@ -51,28 +74,34 @@ class Zone_Redirect_Model_Config
 			 `Status` int(1) NOT NULL DEFAULT '1',
 			 `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			 PRIMARY KEY (`Redirect_ID`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
-            ";
-        
-        $query1 = "
-            CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "zn_redirect_visits` (
+            )".$charset_collate;
+            
+        $queries[] = "
+            CREATE TABLE IF NOT EXISTS `" . $table_prefix . "zn_redirect_visits` (
             `RedirectVisit_ID` int(11) NOT NULL AUTO_INCREMENT,
             `Visited_From` TEXT NOT NULL,
             `Visited_To` TEXT NOT NULL,
             `Visited_Type` varchar(50) NOT NULL,
             `Last_visited_Date` timestamp NOT NULL,
             PRIMARY KEY (`RedirectVisit_ID`)
-           ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
-        ";
+           )".$charset_collate;
        
-        $sql = $db->query($query);
-        $sql1 = $db->query($query1);
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
-        if ($sql && $sql1) {
-                return true;
-        } else {
-            die("MYSQL Error : " . mysqli_error($db));
-            // DROP TABLE `wp_zn_redirect_links`, `wp_zn_redirect_visits`
+        // create structure
+         foreach ($queries as $query) {
+            dbDelta($query);
         }
+        add_option('zone_redirect_version', $this->version);
+    }
+
+    public function dropTable()
+    {
+        $table_prefix = $this->wpdb->prefix;
+
+        $this->wpdb->query("DROP TABLE IF EXISTS `" . $table_prefix . "zn_redirect_links`");
+        $this->wpdb->query("DROP TABLE IF EXISTS `" . $table_prefix . "zn_redirect_visits`");
+
+        // DROP TABLE `wp_zn_redirect_links`, `wp_zn_redirect_visits`
     }
 }

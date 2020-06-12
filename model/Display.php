@@ -15,56 +15,55 @@
 This Model is the parent model class that returns database object
  *******************************************************************/
 
-require_once('Config.php');
 
-class Zone_Redirect_Model_Display extends Zone_Redirect_Model_Config {
+class Zone_Redirect_Model_Display {
 
-    protected $requester;
+    protected $redirect_links;
+    protected $redirect_visits;
+    protected $wpdb;
 
     public function __construct() {
         global $wpdb;
 
         $this->redirect_links = "`" . $wpdb->prefix . "zn_redirect_links`";
         $this->redirect_visits = "`" . $wpdb->prefix . "zn_redirect_visits`";
+        $this->wpdb = $wpdb;
     }
 
     public function getAllLinks() {
-      $db = $this->db_connect();
       $sql= "
         SELECT * FROM ". $this->redirect_links;
-      $result = $db->query($sql);
+      $result = $this->wpdb->get_results($sql);
       if($result){
         return $result;
       }else{
-        die("MYSQL Error : ".mysqli_error($db));
+        $this->wpdb->show_errors();
       }
     }
 
     public function getLinkInfo($zn_edit_id)
     {
-      $db = $this->db_connect();
       $sql= "
         SELECT * FROM ". $this->redirect_links . " WHERE `Redirect_ID` = " . $zn_edit_id."
         ";
-      $result = $db->query($sql);
+      $result = $this->wpdb->get_results($sql);
       if($result){
         return $result;
       }else{
-        die("MYSQL Error : ".mysqli_error($db));
+        $this->wpdb->show_errors();
       }
     }
 
     public function getLastLink()
     {
-      $db = $this->db_connect();
       $sql = "
         SELECT * FROM " . $this->redirect_links . " ORDER BY `Redirect_ID` DESC LIMIT 1
         ";
-      $result = $db->query($sql);
+      $result = $this->wpdb->get_results($sql);
       if ($result) {
         return $result;
       } else {
-        die("MYSQL Error : " . mysqli_error($db));
+        $this->wpdb->show_errors();
       }
     }
 
@@ -85,41 +84,38 @@ class Zone_Redirect_Model_Display extends Zone_Redirect_Model_Config {
     /** NOT USING ANYMORE - OLD REQEUST */
     public function getLinkRequest($request)
     {
-      $db = $this->db_connect();
       $sql = "
         SELECT * FROM " . $this->redirect_links . " WHERE `From` = '$request'";
-      $result = $db->query($sql);
+      $result = $this->wpdb->get_results($sql);
       if ($result) {
         return $result;
       } else {
-        die("MYSQL Error : " . mysqli_error($db));
+        $this->wpdb->show_errors();
       }
     }
 
     public function checkLinkStatus($zn_ID)
     {
-      $db = $this->db_connect();
       $sql = "
         SELECT `Status` FROM " . $this->redirect_links . " WHERE `Redirect_ID` = ". $zn_ID."
         ";
-      $result = $db->query($sql);
+      $result = $this->wpdb->get_results($sql);
       if ($result) {
         $row = $result->fetch_assoc();
         return $row['Status'];
       } else {
-        die("MYSQL Error : " . mysqli_error($db));
+        $this->wpdb->show_errors();
       }
     }
 
     public function getAllHistory() {
-      $db = $this->db_connect();
       $sql= "
         SELECT * FROM ". $this->redirect_visits;
-      $result = $db->query($sql);
+      $result = $this->wpdb->get_results($sql);
       if($result){
         return $result;
       }else{
-        die("MYSQL Error : ".mysqli_error($db));
+        $this->wpdb->show_errors();
       }
     }
 }

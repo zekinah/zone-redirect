@@ -35,14 +35,14 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'ZONE_REDIRECT_VERSION', '1.0.0' );
+define( 'ZONE_REDIRECT_VERSION', '1.0.1' );
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-zone-redirect-activator.php
  */
 function activate_zone_redirect() {
-	require_once plugin_dir_path(__FILE__) . 'model/Config.php';
+	require_once plugin_dir_path( __FILE__ ) . 'model/Config.php';
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-zone-redirect-activator.php';
 	Zone_Redirect_Activator::activate();
 }
@@ -52,6 +52,7 @@ function activate_zone_redirect() {
  * This action is documented in includes/class-zone-redirect-deactivator.php
  */
 function deactivate_zone_redirect() {
+	require_once plugin_dir_path( __FILE__ ) . 'model/Config.php';
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-zone-redirect-deactivator.php';
 	Zone_Redirect_Deactivator::deactivate();
 }
