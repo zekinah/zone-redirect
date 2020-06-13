@@ -16,7 +16,7 @@
 <div class="zone-card">
     <div class="wrap">
         <h1 class="zone-title">Zone Redirect</h1>
-        <span class="zone-version">v1.0.1</span>
+        <span class="zone-version">v1.0.2</span>
     </div>
     <hr class="wp-header-end">
     <div class="container-fluid">
