@@ -48,9 +48,6 @@
   padding: 0 10px 1px !important;
 }
 
-.btn:hover {
-  color: #fff;
-}
 
 .pull-r {
   float: right;
@@ -60,10 +57,6 @@
   float: left;
 }
 
-button#btn-restore-content:hover,
-button#btn-restore-email-settings:hover {
-  color: #000;
-}
 
 .toggle .toggle-group label.btn:hover {
   color: #000 !important;
@@ -73,25 +66,6 @@ p .button {
     vertical-align: baseline;
 }
 
-button.btn-show,
-button.btn-save-settings,
-button.btn-zn-primary {
-  background: #0085ba;
-  border-color: #0073aa #006799 #006799;
-  box-shadow: 0 1px 0 #006799;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
-}
-
-button.btn-close {
-  background: #BA0028;
-  border-color: #AA001E #99001A #99001A;
-  box-shadow: 0 1px 0 #99001A;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 -1px 1px #99001A, 1px 0 1px #99001A, 0 1px 1px #99001A, -1px 0 1px #99001A;
-}
 /* Style the tab */
 .tab-content .tab-pane {
   border-left: 1px solid #dee2e6;
