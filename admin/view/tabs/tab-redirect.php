@@ -38,7 +38,7 @@
         </div>
         <div class="col">
             <label></label>
-            <button id="btn-addLink"  type="button" class="btn btn-save-settings">Add New Links</button>
+            <button id="btn-addLink"  type="button" class="button-primary btn-save-settings">Add New Links</button>
         </div>
     </div>
 </div>

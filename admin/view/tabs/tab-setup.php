@@ -25,7 +25,7 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
                     $selected_file = sanitize_text_field($_POST['selected_file']);
                     $selectedFile = isset($selected_file) ? $selected_file : null; ?>
                     <input name="selected_file" id="selected_file" type="text" size="70" value="<?=$selectedFile?>"/>
-                    <button id="btn-upload" type="button" class="btn btn-upload btn-zn-primary pull-r">Upload</button>
+                    <button id="btn-upload" type="button" class="button-primary btn-upload btn-zn-primary pull-r">Upload</button>
                     <br><?php _e( 'File must end with a .csv extension.'); ?>
                 </div>
                 <div class="form-group">
@@ -42,7 +42,7 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
                     $csvpath =  plugin_dir_url( dirname( __FILE__ ) ).'file/zone-redirect-sampledata.csv';
                 ?>
                 <strong><label for="">Download the sample data. <a href="<?=$csvpath?>" download="zone-redirect-sampledata.csv">here</a></label></strong>
-                <button id="btn-import" type="button" class="btn btn-import btn-zn-primary pull-r">Import</button>
+                <button id="btn-import" type="button" class="button-primary btn-import btn-zn-primary pull-r">Import</button>
             </div>
         </div>
     </div>
@@ -51,7 +51,7 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
             <h3 class="zone-title-sub">Export Data</h3>
             <p>The file that will be exported is a .csv.</p>
             <div class="form">
-                <button id="btn-extract" type="button" class="btn btn-save-settings">Export</button>
+                <button id="btn-extract" type="button" class="button-primary btn-save-settings">Export</button>
             </div>
         </div>
     </div>
