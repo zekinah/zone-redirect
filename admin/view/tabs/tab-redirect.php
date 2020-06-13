@@ -88,6 +88,8 @@
 <?php add_thickbox(); ?>
 <div id="edit-links" style="display:none;">
     <h3 class="zone-title-sub">Links Details</h3>
-    <div class="container-link-info"></div>
-    <button id="btn-updateLink"  type="button" class="btn btn-save-settings pull-r">Save</button>
+    <div class="container-link-info">
+    <span class="spinner is-active"></span>
+    </div>
+    <button id="btn-updateLink"  type="button" class="button-primary btn-save-settings pull-r">Save</button>
 </div>
