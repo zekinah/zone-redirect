@@ -23,12 +23,13 @@
                             if(data.confirm){
                                 $('#zn_txt-from').val('');
                                 $('#zn_txt-to').val('');
+                                $('#tbl-redirect #body_links .dataTables_empty').empty();
                                 $('#tbl-redirect #body_links').prepend(data.html);
                                 successNotif('Successfully added a new redirection');
                             } else if (data.confirm == 2) {
                                 warningrNotif('Please add valid URL.');
                             } else {
-                                errorNotif('There is an Error occured while saving the data');
+                                errorNotif('Please add valid URL.');
                             }
                         },
                         error: function (errorThrown) {
@@ -67,8 +68,10 @@
                                 $('#link-'+zn_edit_id).empty();
                                 $('#link-'+zn_edit_id).append(data.html);
                                 successNotif('Successfully updated the redirection');
+                            } else if (data.confirm == 2) {
+                                warningrNotif('Please add valid URL.');
                             } else {
-                                errorNotif('There is an Error occured while saving the data');
+                                errorNotif('Please add valid URL.');
                             }
                         },
                         error: function (errorThrown) {

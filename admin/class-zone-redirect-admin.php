@@ -68,7 +68,6 @@ class Zone_Redirect_Admin {
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/zone-redirect-admin.css', array(), $this->version, 'all' );
 		/* Bootstrap 4 CSS */
-		// echo '<link rel="stylesheet" href="'.plugin_dir_url(__FILE__) . 'css/bootstrap/bootstrap.min.css">';
 		wp_enqueue_style('zone-redirect-bootstrap-css', plugin_dir_url(__FILE__) . 'css/bootstrap/bootstrap.min.css', array(), $this->version);
 		wp_enqueue_style('zone-redirect-bootstrap-toggle', plugin_dir_url(__FILE__) . 'css/bootstrap/bootstrap-toggle.min.css', array(), $this->version);
 		wp_enqueue_style('zone-redirect-datatable-css', plugin_dir_url(__FILE__) . 'css/datatable/jquery.dataTables.css', array(), $this->version);

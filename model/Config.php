@@ -5,8 +5,8 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Zone_Cookie
- * @subpackage Zone_Cookie/admin/model
+ * @package    Zone_Redirect
+ * @subpackage Zone_Redirect/admin/model
  * @author     Zekinah Lecaros <zjlecaros@gmail.com> 
  * 
  */
@@ -51,7 +51,7 @@ class Zone_Redirect_Model_Config
 		if ( defined( 'ZONE_REDIRECT_VERSION' ) ) {
 			$this->version = ZONE_REDIRECT_VERSION;
 		} else {
-			$this->version = '1.0.2';
+			$this->version = '1.0.3';
 		}
         $this->plugin_name = 'zone-redirect';
         $this->wpdb = $wpdb;
