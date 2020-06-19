@@ -30,7 +30,7 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
                 </div>
                 <div class="form-group">
                     <label><strong>Select Starting Row:</strong></label>
-                    <input id="zn_start_row" name="zn_start_row" type="number" min="0"/>
+                    <input id="zn_start_row" name="zn_start_row" type="number" min="0" value="1"/>
                     <br><?php _e( 'Defaults to row 1 (top row) of .csv file.'); ?>
                 </div>
                 <div class="form-group">
