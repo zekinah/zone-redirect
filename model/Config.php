@@ -55,7 +55,7 @@ class Zone_Redirect_Model_Config
 		if ( defined( 'ZONE_REDIRECT_VERSION' ) ) {
 			$this->version = ZONE_REDIRECT_VERSION;
 		} else {
-			$this->version = '1.0.3';
+			$this->version = '1.0.4';
 		}
         $this->plugin_name = 'zone-redirect';
         $this->wpdb = $wpdb;
@@ -103,9 +103,7 @@ class Zone_Redirect_Model_Config
     {
         $table_prefix = $this->wpdb->prefix;
 
-        $this->wpdb->query("DROP TABLE IF EXISTS `" . $table_prefix . "zn_redirect_links`");
+        // $this->wpdb->query("DROP TABLE IF EXISTS `" . $table_prefix . "zn_redirect_links`");
         $this->wpdb->query("DROP TABLE IF EXISTS `" . $table_prefix . "zn_redirect_visits`");
-
-        // DROP TABLE `wp_zn_redirect_links`, `wp_zn_redirect_visits`
     }
 }

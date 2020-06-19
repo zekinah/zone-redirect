@@ -1,7 +1,7 @@
 === Zone Redirect ===
 Contributors: zekinah
-Donate link: http://paypal.me/zekinahlecaros
-Tags: http-request,redirect
+Donate link: https://www.buymeacoffee.com/zekinah
+Tags: 301,302,redirect,url,seo
 Requires at least: 3.0.1
 Tested up to: 5.4
 Requires PHP: 5.6 or higher
@@ -56,4 +56,9 @@ The plugin is simple to install:
 4. History
 
 == Changelog ==
-v1.0.3 - Initial Release
+
+= v1.0.4 =
+* Fixed Minor Bugs
+
+= v1.0.3=
+* Initial Release
