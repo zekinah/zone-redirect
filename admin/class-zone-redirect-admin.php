@@ -286,11 +286,11 @@ class Zone_Redirect_Admin {
 		$link_rem_id = sanitize_text_field($_POST['link_rem_id']);
 		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$tbl_links = $this->update->trashLink($link_rem_id);
-			// if ($tbl_links) {
-			// 	$data = 1;
-			// } else {
-			// 	$data = 0;
-			// }
+			if ($tbl_links) {
+				$data = 1;
+			} else {
+				$data = 0;
+			}
 		}
 		echo $tbl_links;
 		wp_die();
