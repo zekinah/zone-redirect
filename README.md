@@ -1,5 +1,18 @@
+<img src="https://ps.w.org/zone-redirect/assets/banner-772x250.png" alt="Banner" width="100%">
+
 # Zone Redirect for Wordpress
+
+![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/zone-redirect)
+![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/zone-redirect)
+![GitHub issues](https://img.shields.io/github/issues/zekinah/zone-redirect)
+![WordPress Plugin Rating](https://img.shields.io/wordpress/plugin/stars/zone-redirect)
+![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dm/zone-redirect)
+![GitHub](https://img.shields.io/github/license/zekinah/zone-redirect)
+
+Tags: 301,302,redirect,url,seo
 Requires at least: 3.0.1
+Tested up to: 5.4
+Requires PHP: 5.6 or higher
 Tested up to: 5.4
 Stable tag: 4.3
 License: GPLv2 or later
@@ -38,6 +51,6 @@ Zone Redirect is done for various reasons:
 
 Feel free to contribute, subtmit bugs, issues or features to be added.
 
-* **Zekinah Joy Lecaros** - *Initial work* - [Zekinah Lecaros](https://github.com/zekinah)
+* **Zekinah Lecaros** - *Initial work* - [Zekinah Lecaros](https://github.com/zekinah)
 
 <a href="https://www.buymeacoffee.com/zekinah" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>

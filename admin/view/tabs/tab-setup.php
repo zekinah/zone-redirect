@@ -24,9 +24,15 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
                     <?php
                     $selected_file = sanitize_text_field($_POST['selected_file']);
                     $selectedFile = isset($selected_file) ? $selected_file : null; ?>
-                    <input name="selected_file" id="selected_file" type="text" size="70" value="<?=$selectedFile?>"/>
-                    <button id="btn-upload" type="button" class="button-primary btn-upload btn-zn-primary pull-r">Upload</button>
-                    <br><?php _e( 'File must end with a .csv extension.'); ?>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input name="selected_file" id="selected_file" type="text" size="70" value="<?=$selectedFile?>"/>
+                        </div>
+                        <div class="input-group-append">
+                            <button id="btn-upload" type="button" class="button-primary btn-upload btn-zn-primary pull-r">Upload</button>
+                        </div>
+                    </div>
+                    <?php _e( 'File must end with a .csv extension.'); ?>
                 </div>
                 <div class="form-group">
                     <label><strong>Select Starting Row:</strong></label>
