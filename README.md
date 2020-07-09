@@ -47,9 +47,13 @@ Zone Redirect is done for various reasons:
 1. Upload `zone-redirect` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
+## Acknowledgment
+* Thank you for the third party, libraries and article that is used on this plugin.
+
 ## Contributor
 
 Feel free to contribute, subtmit bugs, issues or features to be added.
+
 
 * **Zekinah Lecaros** - *Initial work* - [Zekinah Lecaros](https://github.com/zekinah)
 
