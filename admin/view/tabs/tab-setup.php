@@ -11,7 +11,6 @@
  * @package    Zone_Redirect
  * @subpackage Zone_Redirect/admin/partials
  */
-$zn_form_nonce = wp_create_nonce('zn_form_nonce');
 ?>
 <h3 class="zone-title-short">Setup</h3>
 <div class="row">
@@ -33,12 +32,12 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
                 </div>
                 <div class="form-group">
                     <label><strong>Select Starting Row:</strong></label>
-                    <input id="zn_start_row" name="zn_start_row" type="number" min="0" value="1"/>
-                    <br><?php _e( 'Defaults to row 1 (top row) of .csv file.'); ?>
+                    <input id="zn_start_row" name="zn_start_row" type="number" min="2" value="2"/>
+                    <br><?php _e( 'Defaults to row 2 (top row) of .csv file. To avoid the column title to be added.'); ?>
                 </div>
                 <div class="form-group">
                     <label><strong>Update exisiting data:</strong></label>
-                    <input class="form-check-input zn_update_data" id="zn_update_data" data-nonce="<?= $zn_form_nonce ?>" type="checkbox" name="zn_update_data" data-toggle="toggle">
+                    <input class="form-check-input zn_update_data" id="zn_update_data" type="checkbox" name="zn_update_data" data-toggle="toggle">
                     <br><?php _e( 'Will update exisiting database rows when a duplicated primary key is encountered. Defaults to all rows inserted as new rows.'); ?>
                 </div>
                 <?php
