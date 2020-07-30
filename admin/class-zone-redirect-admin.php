@@ -84,6 +84,8 @@ class Zone_Redirect_Admin {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/zone-redirect-admin.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script('jquery');
+		wp_enqueue_script('media-upload');
+		wp_enqueue_media();
 		/* Bootstrap 4 JS */
 		wp_enqueue_script('zone-redirect-bootstrap-js', plugin_dir_url(__FILE__) . 'js/bootstrap/bootstrap.min.js', array('jquery'), $this->version);
 		wp_enqueue_script('zone-redirect-toggle', plugin_dir_url(__FILE__) . 'js/bootstrap/bootstrap-toggle.min.js', array('jquery'), $this->version);

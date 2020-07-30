@@ -21,12 +21,9 @@ $zn_form_nonce = wp_create_nonce('zn_form_nonce');
             <div class="form">
                 <div class="form-group">
                     <label><strong>Select Input File:</strong></label>
-                    <?php
-                    $selected_file = sanitize_text_field($_POST['selected_file']);
-                    $selectedFile = isset($selected_file) ? $selected_file : null; ?>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input name="selected_file" id="selected_file" type="text" size="70" value="<?=$selectedFile?>"/>
+                            <input name="selected_file" id="selected_file" type="text" size="70" readonly/>
                         </div>
                         <div class="input-group-append">
                             <button id="btn-upload" type="button" class="button-primary btn-upload btn-zn-primary pull-r">Upload</button>
