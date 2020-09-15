@@ -20,7 +20,10 @@
  * @subpackage Zone_Redirect/admin
  * @author     Zekinah Lecaros <zjlecaros@gmail.com>
  */
-
+// If this file is called directly, abort.
+if (!defined('ABSPATH')) {
+	exit;
+}
 class Zone_Redirect_Admin {
 
 	/**
