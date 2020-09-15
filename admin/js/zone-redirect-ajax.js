@@ -65,6 +65,7 @@
                         },
                         success: function (data) {
                             if(data.confirm){
+                                self.parent.tb_remove();
                                 $('#link-'+zn_edit_id).empty();
                                 $('#link-'+zn_edit_id).append(data.html);
                                 successNotif('Successfully updated the redirection');

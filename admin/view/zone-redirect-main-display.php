@@ -21,7 +21,7 @@
     <hr class="wp-header-end">
     <div class="container-fluid">
         <?php
-        $tab_option = array('Home', 'Manage Redirection', 'Setup', 'History');
+        $tab_option = array('Manage Redirection', 'Setup', 'History');
         echo '<ul class="nav nav-tabs nav-tab-wrapper" role="tablist">';
         foreach ($tab_option as $key => $option_setting) {
             if ($key == 0) {
@@ -36,20 +36,16 @@
         echo ' </ul>';
         ?>
         <div class="tab-content">
-            <div id="tab-0" class="container-fluid tab-pane nav-tab-active active">
-            <!-- Home -->
-                <?php require_once('tabs/tab-home.php'); ?>
-            </div>
-            <!-- Redirect -->
-            <div id="tab-1" class="container-fluid tab-pane fade"><br>
+            <!-- Home Redirect -->
+            <div id="tab-0" class="container-fluid tab-pane nav-tab-active active"><br>
                 <?php require_once('tabs/tab-redirect.php'); ?>
             </div>
             <!-- Setup -->
-            <div id="tab-2" class="container-fluid tab-pane fade"><br>
+            <div id="tab-1" class="container-fluid tab-pane fade"><br>
                 <?php require_once('tabs/tab-setup.php'); ?>
             </div>
             <!-- History -->
-            <div id="tab-3" class="container-fluid tab-pane fade"><br>
+            <div id="tab-2" class="container-fluid tab-pane fade"><br>
                 <?php require_once('tabs/tab-history.php'); ?>
             </div>
         </div>

@@ -12,6 +12,22 @@
  * @subpackage Zone_Redirect/admin/partials
  */
 ?>
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="zone-title">Zone Redirect</h1>
+            <div class="zone-home">
+                <i class="fas fa-globe"></i>
+                <i class="fas fa-globe"></i>
+                <i class="fas fa-globe"></i>
+                <i class="fas fa-globe"></i>
+                <i class="fas fa-globe"></i>
+                <p>This configuration wizard will help you setup your Redirection Links</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <h3 class="zone-title-short">Information</h3>
 <ul>
     <li><strong>301</strong> - <?php _e( 'HTTP response status code 302 Moved Permanently is used for permanent URL redirection, meaning current links or records using the URL that the response is received for should be updated.'); ?></li>
