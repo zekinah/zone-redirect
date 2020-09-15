@@ -20,7 +20,6 @@
  * @subpackage Zone_Redirect/admin
  * @author     Zekinah Lecaros <zjlecaros@gmail.com>
  */
-require_once(plugin_dir_path(__FILE__) . '../model/model.php');
 
 class Zone_Redirect_Admin {
 

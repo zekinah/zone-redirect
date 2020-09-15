@@ -93,6 +93,7 @@ class Zone_Redirect {
 	 *
 	 * - Zone_Redirect_Loader. Orchestrates the hooks of the plugin.
 	 * - Zone_Redirect_i18n. Defines internationalization functionality.
+	 * - Zone_Redirect_Model_Config. Defines schema of the plugin.
 	 * - Zone_Redirect_Admin. Defines all hooks for the admin area.
 	 * - Zone_Redirect_Public. Defines all hooks for the public side of the site.
 	 *
@@ -115,6 +116,11 @@ class Zone_Redirect {
 		 * of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-zone-redirect-i18n.php';
+
+		/**
+		 * The class responsible for defining all data from the storage.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'model/model.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
