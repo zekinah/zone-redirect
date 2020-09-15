@@ -1,0 +1,19 @@
+{
+    "name": "zekinah/zone-redirect",
+    "description": "A WordPress plugin that helps you manage and create 301 & 302 redirects for your WordPress site to improve SEO and visitor experience. With a user-friendly interface, Zone Redirect is easy to install and configure.",
+    "keywords": ["wordpress", "plugin", "wordpress-plugin"],
+    "homepage": "https://github.com/zekinah/zone-redirect",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "zekinah",
+            "email": "zjlecaros@gmail.com",
+            "homepage": "https://zekinahlecaros.com/"
+        }
+    ],
+    "type": "wordpress-plugin",
+    "require": {
+      "php": ">=5.6"
+    },
+    "minimum-stability": "stable"
+}

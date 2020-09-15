@@ -35,7 +35,7 @@ Zone Redirect is done for various reasons:
 
 Support
 Feel free to help with development or issue reporting to
-(Github Repository)[https://github.com/zekinah/zone-redirect/]
+[Github Repository](https://github.com/zekinah/zone-redirect/)
 
 == Installation ==
 

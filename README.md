@@ -1,4 +1,4 @@
-<img src="https://ps.w.org/zone-redirect/assets/banner-772x250.png" alt="Banner" width="100%">
+<img src="https://ps.w.org/zone-redirect/assets/banner-772x250.jpg" alt="Banner" width="100%">
 
 # Zone Redirect for Wordpress
 
@@ -11,10 +11,10 @@
 
 Tags: 301,302,redirect,url,seo
 Requires at least: 3.0.1
-Tested up to: 5.4
+Tested up to: 5.5.1
 Requires PHP: 5.6 or higher
 Tested up to: 5.4
-Stable tag: 4.3
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
