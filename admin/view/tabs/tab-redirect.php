@@ -69,7 +69,7 @@
                         <td><?= date('M d, Y', strtotime($row->Date)) ?></td>
                         <td><input class="form-check-input zn_link_stat" id="zn_link_stat" type="checkbox" name="zn_link_stat" data-zn_link_stat_id="<?= $row->Redirect_ID ?>" <?php echo ($row->Status == '1' ? 'checked' : ''); ?> data-toggle="toggle"></td>
                         <td>
-                            <a href="#TB_inline?width=600&height=400&inlineId=edit-links" class="thickbox btn btn-info btn-xs btn-link-update"
+                            <a href="#TB_inline?width=600&height=400&inlineId=edit-links" class="thickbox btn btn-info btn-xs btn_link_update"
                             data-link_edit_id="<?= $row->Redirect_ID ?>"
                             data-link_edit_from="<?= $row->From ?>"
                             data-link_edit_to="<?= $row->To ?>"
@@ -90,7 +90,7 @@
 <?php add_thickbox(); ?>
 <div id="edit-links" style="display:none;">
     <h3 class="zone-title-sub">Links Details</h3>
-    <div class="container-link-info">
+    <div id="container-link-info">
     <span class="spinner is-active"></span>
     </div>
     <button id="btn-updateLink"  type="button" class="button-primary btn-save-settings pull-r">Save</button>

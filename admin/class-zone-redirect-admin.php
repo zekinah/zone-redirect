@@ -255,14 +255,18 @@ class Zone_Redirect_Admin {
 
 	public function load_link_info()
 	{
+		$link_edit_id = sanitize_text_field($_POST['link_edit_id']);
+		$link_edit_from = sanitize_text_field($_POST['link_edit_from']);
+		$link_edit_to = sanitize_text_field($_POST['link_edit_to']);
+		$link_edit_type = sanitize_text_field($_POST['link_edit_type']);
 		if (check_ajax_referer( 'zn-ajax-nonce', '_ajax_nonce' )) {
 			$dataFeed = '';
 			$dataFeed .= '<div class="row">
-				<input type="hidden" id="zn_edit_id" value="'.sanitize_text_field($_POST['link_edit_id']).'">
+				<input type="hidden" id="zn_edit_id" value="'. $link_edit_id .'">
 				<div class="col-md-12">
 					<div class="form-group">
 						<label><strong>From URL</strong></label>
-						<input type="text" class="form-control" id="zn_edit_from" value="' . sanitize_text_field($_POST['link_edit_from']) . '" />
+						<input type="text" class="form-control" id="zn_edit_from" value="' . $link_edit_from . '" />
 					</div>
 				</div>
 			</div>
@@ -270,19 +274,19 @@ class Zone_Redirect_Admin {
 				<div class="col-md-12">
 					<div class="form-group">
 						<label><strong>To URL</strong></label>
-						<input type="text" class="form-control" id="zn_edit_to" value="' . sanitize_text_field($_POST['link_edit_to']) . '" />
+						<input type="text" class="form-control" id="zn_edit_to" value="' . $link_edit_to . '" />
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="form-group">
 						<label><strong>Redirection Type</strong></label>
-						<input type="text" class="form-control" id="zn_edit_type" value="' . sanitize_text_field($_POST['link_edit_type']) . '" readonly/>
+						<input type="text" class="form-control" id="zn_edit_type" value="' . $link_edit_type . '" readonly/>
 					</div>
 				</div>
 			</div>';
 		}
 		echo $dataFeed;
-		wp_die();
+		exit();
 	}
 
 	public function trash_link()
