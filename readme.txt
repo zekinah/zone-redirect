@@ -53,6 +53,9 @@ The plugin is simple to install:
 3. History Logs
 
 == Changelog ==
+= 1.0.7 =
+* Fixed Minor Bugs when the `WP_DEBUG` is on.
+
 = v1.0.6 =
 * Refactored Tabs
 * Fixed Minor Bugs
