@@ -2,12 +2,12 @@
 
 # Zone Redirect for Wordpress
 
-![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/zone-redirect)
-![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/zone-redirect)
-![GitHub issues](https://img.shields.io/github/issues/zekinah/zone-redirect)
-![WordPress Plugin Rating](https://img.shields.io/wordpress/plugin/stars/zone-redirect)
-![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dm/zone-redirect)
-![GitHub](https://img.shields.io/github/license/zekinah/zone-redirect)
+![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/zone-redirect?style=flat-square)
+![WordPress Plugin: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/zone-redirect?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/zekinah/zone-redirect?style=flat-square)
+![WordPress Plugin Rating](https://img.shields.io/wordpress/plugin/stars/zone-redirect?style=flat-square)
+![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/zone-redirect?style=flat-square)
+![GitHub](https://img.shields.io/github/license/zekinah/zone-redirect?style=flat-square)
 
 Tags: 301,302,redirect,url,seo
 Requires at least: 3.0.1
