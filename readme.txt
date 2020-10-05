@@ -53,6 +53,9 @@ The plugin is simple to install:
 3. History Logs
 
 == Changelog ==
+= 1.0.8 =
+* CSS Tweaks on Admininstrator.
+
 = 1.0.7 =
 * Fixed Minor Bugs when the `WP_DEBUG` is on.
 

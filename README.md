@@ -9,14 +9,12 @@
 ![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/zone-redirect?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/zekinah/zone-redirect?style=flat-square)
 
-Tags: 301,302,redirect,url,seo
-Requires at least: 3.0.1
-Tested up to: 5.5.1
-Requires PHP: 5.6 or higher
-Tested up to: 5.4
-Stable tag: 1.0.6
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: 301,302,redirect,url,seo <br>
+Requires at least: 3.0.1 <br>
+Requires PHP: 5.6 or higher <br>
+Tested up to: 5.4 <br>
+License: GPLv2 or later <br>
+License URI: http://www.gnu.org/licenses/gpl-2.0.html <br>
 
 This plugin helps you manage and create 301 & 302 redirects for your WordPress site to improve SEO and visitor experience. With a user-friendly interface, Zone Redirect is easy to install and configure.
 
