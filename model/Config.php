@@ -55,7 +55,7 @@ class Zone_Redirect_Model_Config
 		if ( defined( 'ZONE_REDIRECT_VERSION' ) ) {
 			$this->version = ZONE_REDIRECT_VERSION;
 		} else {
-			$this->version = '1.0.7';
+			$this->version = '1.0.8';
 		}
         $this->plugin_name = 'zone-redirect';
         $this->wpdb = $wpdb;
