@@ -54,7 +54,7 @@ The plugin is simple to install:
 
 == Changelog ==
 = 1.0.8 =
-* CSS Tweaks on Admininstrator.
+* CSS Tweaks on Administrator.
 
 = 1.0.7 =
 * Fixed Minor Bugs when the `WP_DEBUG` is on.
