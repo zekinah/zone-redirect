@@ -10,9 +10,9 @@
 ![GitHub](https://img.shields.io/github/license/zekinah/zone-redirect?style=flat-square)
 
 Tags: 301,302,redirect,url,seo <br>
-Requires at least: 3.0.1 <br>
-Requires PHP: 5.6 or higher <br>
-Tested up to: 5.4 <br>
+Requires at least: 5 <br>
+Requires PHP: 7 or higher <br>
+Tested up to: 5.6 <br>
 License: GPLv2 or later <br>
 License URI: http://www.gnu.org/licenses/gpl-2.0.html <br>
 

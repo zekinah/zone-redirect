@@ -2,10 +2,10 @@
 Contributors: zekinah
 Donate link: https://www.buymeacoffee.com/zekinah
 Tags: 301,302,redirect,url,seo
-Requires at least: 3.0.1
-Tested up to: 5.5.1
-Requires PHP: 5.6 or higher
-Stable tag: 1.0.6
+Requires at least: 5
+Tested up to: 5.6
+Requires PHP: 7 or higher
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,9 @@ The plugin is simple to install:
 3. History Logs
 
 == Changelog ==
+= 1.0.9 =
+* Compatibility for WP5.6 
+
 = 1.0.8 =
 * CSS Tweaks on Administrator.
 
