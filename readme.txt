@@ -53,8 +53,9 @@ The plugin is simple to install:
 3. History Logs
 
 == Changelog ==
-= 1.0.9 =
+= 1.0.10 =
 * Compatibility for WP5.6 
+* Clean and Optimized code.
 
 = 1.0.8 =
 * CSS Tweaks on Administrator.
