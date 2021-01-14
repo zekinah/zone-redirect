@@ -104,7 +104,7 @@ class Zone_Redirect_Public {
 				$stat = $row->Status;
 				$type = $row->Type;
 				if($stat) {
-					if(rtrim(trim($requestFrom), '/') === rtrim(trim($url_request), '/')) {
+					if(rtrim(trim($requestFrom, '/')) === rtrim(trim($url_request, '/'))) {
 						$data_and_time_today = date('Y-m-d H:i:s');
 						$counted = $this->insert->setVisits($requestFrom,$requestTo,$type,$data_and_time_today);
 						if($type == '301'){
@@ -118,8 +118,6 @@ class Zone_Redirect_Public {
 							exit();
 						}
 					}
-				} else {
-					unset($url_request);
 				}
 			}	
 			
