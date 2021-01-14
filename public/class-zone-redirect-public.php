@@ -118,6 +118,8 @@ class Zone_Redirect_Public {
 							exit();
 						}
 					}
+				} else {
+					unset($url_request);
 				}
 			}	
 			
